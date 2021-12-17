@@ -18,7 +18,7 @@ public class ex_2 {
 		
 		System.out.println(fbRand);
 		System.out.println(arr[fbRand]);
-			
+		
 	
 	}	
 

@@ -3,7 +3,7 @@ package lab_6;
 public class ex_1 {
 
 	public static void main(String[] args) {
-		int[] arr = new int[39];
+		int[] arr = new int[40];
 		arr[0] = 1;
 		arr[1] = 1;
 

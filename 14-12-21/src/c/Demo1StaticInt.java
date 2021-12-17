@@ -22,7 +22,7 @@ public class Demo1StaticInt {
 		System.out.println("=================");
 		
 		Box[] boxes = {new Box(), new Box(1,2,3)};
-		System.out.println();
+		System.out.println(boxes.length);
 		}
 	
 }
