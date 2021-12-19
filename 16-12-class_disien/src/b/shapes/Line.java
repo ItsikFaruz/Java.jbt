@@ -1,12 +1,12 @@
 package b.shapes;
 
-public class Line extends Shape {
+public class Line  {
 
 	private  int length;
 
 	
 	public Line(int length) {
-		super();
+	
 		this.length = length;
 	}
 
