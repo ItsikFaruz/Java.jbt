@@ -19,7 +19,6 @@ public class ex_2 {
 		}
 		int[] arrtemp = new int[arrDup.length];
 
-
 		for (int i = 0; i < arrDup.length; i++) {
 			found = false;
 			for (int j = 0; j < arrDup.length; j++) {
@@ -33,7 +32,7 @@ public class ex_2 {
 			}
 
 		}
-		
+
 		int[] arrUnic = new int[cnt];
 		System.arraycopy(arrtemp, 0, arrUnic, 0, arrUnic.length);
 
