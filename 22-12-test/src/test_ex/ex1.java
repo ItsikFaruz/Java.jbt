@@ -96,3 +96,7 @@ public class ex1 {
 						System.out.println(Arrays.toString(arr3));
 	}
 }
+
+
+
+
