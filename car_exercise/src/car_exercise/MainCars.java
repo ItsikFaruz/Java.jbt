@@ -6,7 +6,7 @@ public class MainCars {
 	public static void main(String[] args) {
 
 		Country country = new Country();
-
+		
 		country.getHighWay()[0] = new HighWay("ayalon", fillCars());
 		country.getHighWay()[1] = new HighWay("bikha", fillCars());
 		country.getHighWay()[2] = new HighWay("arava", fillCars());
@@ -115,7 +115,7 @@ public class MainCars {
 
 	public static Car getRandomCar() {
 		int number = (int) (Math.random() * 9999999) + 1000000;
-		int speed = (int) (Math.random() * Car.MAX_SPEED);
+		int speed = (int) (Math.random() * Car.MAX_SPEED+1);
 		if (Math.random() > 0.5) {
 
 			return new FamilyCar(number, speed);

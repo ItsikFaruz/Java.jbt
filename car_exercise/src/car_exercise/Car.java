@@ -5,6 +5,7 @@ public  class Car {
 	private int number;
 	private int speed;
 	public static final int MAX_SPEED = 110;
+	public static final int MIN_SPEED = 0;
 
 
 
@@ -14,7 +15,7 @@ public  class Car {
 	
 	public Car(int number, int speed) {
 		this.number = number;
-		this.speed = speed;
+		setSpeed(speed);
 	}
 
 
@@ -40,7 +41,7 @@ public  class Car {
 
 
 	public void setSpeed(int speed) {
-		if (speed > 0  && speed < MAX_SPEED)
+		if (speed > MIN_SPEED  && speed < MAX_SPEED)
 		this.speed = speed;
 	}
 	
