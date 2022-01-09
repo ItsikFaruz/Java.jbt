@@ -11,12 +11,18 @@ public interface CompanyDao {
 
 	int addCompany(Company company) throws CouponSystemException;
 
+	
+	
+	
 	void updateCompany(Company company) throws CouponSystemException;
 
 	void deleteCompany(int companyID) throws CouponSystemException;
 
 	List<Company> getAllCompanies()throws CouponSystemException;;
 
+	
+	
+	
 	Company getOneCompany(int companyID)throws CouponSystemException;;
 
 }

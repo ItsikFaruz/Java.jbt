@@ -46,11 +46,10 @@ public class CompanyDaoDb implements CompanyDao {
 		} finally {// finally block will run before the return above
 			// 8. finally - return the connection pool
 			ConnectionPool.getInstance().restoreConnection(con);
-
 		}
-
 	}
 
+	
 	@Override
 	public boolean isCompanyExist(String email, String password) throws CouponSystemException {
 
@@ -67,18 +66,41 @@ public class CompanyDaoDb implements CompanyDao {
 		} finally {
 			ConnectionPool.getInstance().restoreConnection(con);
 		}
-
 	}
 
+	
 	@Override
 	public void updateCompany(Company company) throws CouponSystemException {
+		Connection con = ConnectionPool.getInstance().getConnection();
+		String sql = "update company sent name = ? , email =? , password=?  where id = ? ";
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+
+			pstmt.setString(1, company.getName());
+			pstmt.setString(2, company.getEmail());
+			pstmt.setString(3, company.getPassword());
+			pstmt.setInt(4, company.getId());
+			int rowCount = pstmt.executeUpdate();
+			if (rowCount == 0) {
+				throw new CouponSystemException("updateCompany failed - company" + company.getId() + " not found:");
+			}
+
+		} catch (SQLException e) {
+			throw new CouponSystemException("updateCompany faild", e);
+		} finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
 
 	}
 
+	
 	@Override
 	public void deleteCompany(int companyID) throws CouponSystemException {
 		// TODO Auto-generated method stub
 
+		
+		
+		
+	
 	}
 
 	@Override
@@ -105,6 +127,7 @@ public class CompanyDaoDb implements CompanyDao {
 
 	}
 
+	
 	@Override
 	public List<Company> getAllCompanies() throws CouponSystemException {
 
@@ -125,7 +148,7 @@ public class CompanyDaoDb implements CompanyDao {
 
 			return companies;
 
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			throw new CouponSystemException("getAllCompnies faild", e);
 
 		} finally {
