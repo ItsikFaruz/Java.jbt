@@ -1,35 +1,55 @@
 package food;
 
+import food.Food.Taste;
+
 public class StoreStatistic {
 
 	public static void main(String[] args) {
 
 		Store store = new Store();
 
-		for (int i = 0; i < 100; i++) {
-			int r = (int) (Math.random() * 101);
-			if (r <= 50) {
-				store.addFruits(new Apple(30, "sweet"));
-			}
-			if (r > 50) {
-				store.addFruits(new Strawbery(25, "sour"));
-			}
+		fillStore(store);
+		store.showStock();
+
+	}
+
+	
+	
+	
+	
+	
+	public static void fillStore(Store store) {
+		boolean notFull = true;
+		while (notFull) {
+			notFull = store.addFruit(getRandomFruit());
+
+		}
+		notFull = true;
+		while (notFull) {
+			notFull = store.addVevetable(getRandomVegetable());
 		}
 
-		for (int i = 0; i < 100; i++) {
-			int r = (int) (Math.random() * 101);
-			if (r <= 50) {
-				store.addVegetable(new Carrot(10, "salty"));
-			}
-			if (r > 50) {
-				store.addVegetable(new Tomato(15, "sour"));
-			}
-		}
-		
-		
-		
-		
-		
+	}
+
+	private static Vegetable getRandomVegetable() {
+		Taste taste = Taste.values()[(int) (Math.random() * Taste.values().length)];
+		int weight = (int) (Math.random() * 200) + 100;
+
+		if (Math.random() > 0.5) {
+			return new Carrot(weight, taste);
+		} else
+			return new Tomato(weight, taste);
+
+	}
+
+	public static Fruit getRandomFruit() {
+		Taste taste = Taste.values()[(int) (Math.random() * Taste.values().length)];
+		int weight = (int) (Math.random() * 200) + 100;
+
+		if (Math.random() > 0.5) {
+			return new Apple(weight, taste);
+		} else
+			return new Strawbery(weight, taste);
 
 	}
 

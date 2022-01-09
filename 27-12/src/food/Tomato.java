@@ -3,15 +3,19 @@ package food;
 public class Tomato extends Vegetable {
 
 
-
 	public Tomato() {
-		super();
 	}
 
-	public Tomato(double weight, String taste) {
+	public Tomato(int weight, Taste taste) {
 		super(weight, taste);
 	}
 
+	@Override
+	public String toString() {
+		return "Tomato [getWeight=" + getWeight() + ", getTaste=" + getTaste() + "]";
+	}
 
+	
+	
 	
 }

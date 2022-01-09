@@ -3,39 +3,53 @@ package food;
 public abstract class Food {
 
 	
-		private double weight;
-		private String taste;
-		
-		@Override
-		public String toString() {
-			return "Food [weight=" + weight + ", taste=" + taste + "]";
-		}
+	private int weight ;
+	private Taste taste;
+	
+	public enum Taste{
+		SALTY,SWEET,SPICY,SOUR,BITTER;
+	}
 
-		public Food() {
-		}
-		
-		public Food(double weight, String taste) {
-			super();
-			this.weight = weight;
-			this.taste = taste;
-		}
+	public Food() {
+	}
+	
+	public Food(int weight, Taste taste) {
+		super();
+		this.weight = weight;
+		this.taste = taste;
+	}
 
-		public double getWeight() {
-			return weight;
-		}
+	public int getWeight() {
+		return weight;
+	}
 
-		public void setWeight(double weight) {
-			this.weight = weight;
-		}
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
 
-		public String getTaste() {
-			return taste;
-		}
+	public Taste getTaste() {
+		return taste;
+	}
 
-		public void setTaste(String taste) {
-			this.taste = taste;
-		}
-		
-		
-		
+	public void setTaste(Taste taste) {
+		this.taste = taste;
+	}
+
+	@Override
+	public String toString() {
+		return "Food [weight=" + weight + ", taste=" + taste + "]";
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
