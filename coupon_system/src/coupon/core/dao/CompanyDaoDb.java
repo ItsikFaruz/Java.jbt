@@ -54,9 +54,20 @@ public class CompanyDaoDb implements CompanyDao {
 	public boolean isCompanyExist(String email, String password) throws CouponSystemException {
 		
 		Connection con = ConnectionPool.getInstance().getConnection();
-		String sql = " (0,?,?,?)";
+		String sql = "select *from company where email=? and password=? ";
+		try (PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, email);
+			pstmt.setString(1, password);
+			ResultSet rs = pstmt.executeQuery();
+			return rs.next();
+			
+		} catch (SQLException e) {
+			throw new CouponSystemException("isCompanyExist faild" , e );
+		}finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
 		
-		return false;
+		
 	}
 
 	@Override
