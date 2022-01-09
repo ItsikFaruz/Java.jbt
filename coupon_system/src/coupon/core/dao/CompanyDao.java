@@ -1,6 +1,6 @@
 package coupon.core.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import coupon.core.beans.Company;
 import coupon.core.exception.CouponSystemException;
@@ -15,8 +15,8 @@ public interface CompanyDao {
 
 	void deleteCompany(int companyID) throws CouponSystemException;
 
-	ArrayList<Company> getAllCompanies();
+	List<Company> getAllCompanies()throws CouponSystemException;;
 
-	Company getOneCompany(int companyID);
+	Company getOneCompany(int companyID)throws CouponSystemException;;
 
 }

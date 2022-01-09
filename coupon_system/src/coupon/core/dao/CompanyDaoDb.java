@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import coupon.core.beans.Company;
 import coupon.core.exception.CouponSystemException;
@@ -52,46 +53,85 @@ public class CompanyDaoDb implements CompanyDao {
 
 	@Override
 	public boolean isCompanyExist(String email, String password) throws CouponSystemException {
-		
+
 		Connection con = ConnectionPool.getInstance().getConnection();
 		String sql = "select *from company where email=? and password=? ";
-		try (PreparedStatement pstmt = con.prepareStatement(sql);){
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setString(1, email);
 			pstmt.setString(1, password);
 			ResultSet rs = pstmt.executeQuery();
 			return rs.next();
-			
+
 		} catch (SQLException e) {
-			throw new CouponSystemException("isCompanyExist faild" , e );
-		}finally {
+			throw new CouponSystemException("isCompanyExist faild", e);
+		} finally {
 			ConnectionPool.getInstance().restoreConnection(con);
 		}
-		
-		
+
 	}
 
 	@Override
 	public void updateCompany(Company company) throws CouponSystemException {
 
-		
 	}
 
 	@Override
 	public void deleteCompany(int companyID) throws CouponSystemException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public ArrayList<Company> getAllCompanies() {
-		// TODO Auto-generated method stub
-		return null;
+	public Company getOneCompany(int companyID) throws CouponSystemException {
+		Connection con = ConnectionPool.getInstance().getConnection();
+		String sql = "select *from company where id =?";
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, companyID);
+			ResultSet cmp = pstmt.executeQuery();
+			Company company = new Company();
+			company.setId(cmp.getInt("id"));
+			company.setName(cmp.getString("name"));
+			company.setEmail(cmp.getString("email"));
+			company.setPassword(cmp.getString("password"));
+
+			return company;
+		} catch (SQLException e) {
+
+			throw new CouponSystemException("getOneCompany faild", e);
+
+		} finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
+
 	}
 
 	@Override
-	public Company getOneCompany(int companyID) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Company> getAllCompanies() throws CouponSystemException {
+
+		Connection con = ConnectionPool.getInstance().getConnection();
+		String sql = "select *from company";
+
+		List<Company> companies = new ArrayList<>();
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Company company = new Company();
+				company.setId(rs.getInt("id"));
+				company.setName(rs.getString("name"));
+				company.setEmail(rs.getString("email"));
+				company.setPassword(rs.getString("password"));
+				companies.add(company);
+			}
+
+			return companies;
+
+		} catch (Exception e) {
+			throw new CouponSystemException("getAllCompnies faild", e);
+
+		} finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
+
 	}
 
 }
