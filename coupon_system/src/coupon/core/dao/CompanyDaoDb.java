@@ -93,18 +93,14 @@ public class CompanyDaoDb implements CompanyDao {
 	@Override
 	public void deleteCompany(int companyID) throws CouponSystemException {
 		Connection con = ConnectionPool.getInstance().getConnection();
-		String sql = "select *from company where id=? ";
-		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
-			pstmt.setInt(1, companyID);
-			ResultSet rs = pstmt.executeQuery();
-			if (rs.next() == false) {
-				throw new CouponSystemException("ERROR: the company:" + companyID + " Id not exist");
-			}
-			String sql2 = "delete from company where id = ? ";
-			try (PreparedStatement pstmt2 = con.prepareStatement(sql2);) {
-				pstmt2.setInt(1, companyID);
-				pstmt2.executeUpdate();
 
+			String sql = "delete from company where id = ? ";
+			try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+				pstmt.setInt(1, companyID);
+				int rowCount = pstmt.executeUpdate();
+				if (rowCount == 0) {
+			throw new CouponSystemException("ERROR: the company:" + companyID + " Id not exist");
+				
 			}
 		} catch (SQLException e) {
 			throw new CouponSystemException("delete company faild", e);

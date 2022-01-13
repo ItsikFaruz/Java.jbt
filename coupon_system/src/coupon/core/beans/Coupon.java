@@ -11,19 +11,20 @@ public class Coupon {
 
 	private int id;
 	private int companyId; // will remain null - contains
-	private String category;
+	private Category category;
 	private String title;
 	private String description;
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private int amount;
+	private double price;
 	private String image;
 
 	public Coupon() {
 	}
 
-	public Coupon(int id, int companyId, String category, String title, String description, LocalDate startDate,
-			LocalDate endDate, int amount, String image) {
+	public Coupon(int id, int companyId, Category category, String title, String description, LocalDate startDate,
+			LocalDate endDate, int amount, double price, String image) {
 		super();
 		this.id = id;
 		this.companyId = companyId;
@@ -33,12 +34,15 @@ public class Coupon {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.amount = amount;
+		this.price = price;
 		this.image = image;
 	}
 
 	public int getId() {
 		return id;
 	}
+
+	
 
 	public void setId(int id) {
 		this.id = id;
@@ -52,11 +56,11 @@ public class Coupon {
 		this.companyId = companyId;
 	}
 
-	public String getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 
@@ -100,12 +104,27 @@ public class Coupon {
 		this.amount = amount;
 	}
 
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	public String getImage() {
 		return image;
 	}
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	@Override
+	public String toString() {
+		return "Coupon [id=" + id + ", companyId=" + companyId + ", category=" + category + ", title=" + title
+				+ ", description=" + description + ", startDate=" + startDate + ", endDate=" + endDate + ", amount="
+				+ amount + ", price=" + price + ", image=" + image + "]";
 	}
 
 	@Override
@@ -125,11 +144,7 @@ public class Coupon {
 		return id == other.id;
 	}
 
-	@Override
-	public String toString() {
-		return "Coupon [id=" + id + ", companyId=" + companyId + ", category=" + category + ", title=" + title
-				+ ", description=" + description + ", startDate=" + startDate + ", endDate=" + endDate + ", amount="
-				+ amount + ", image=" + image + "]";
-	}
-
+	
+	
+	
 }
