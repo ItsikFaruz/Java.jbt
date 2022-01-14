@@ -7,14 +7,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import coupon.core.beans.Coupon;
 import coupon.core.beans.Customer;
+import coupon.core.beans.Coupon.Category;
 import coupon.core.exception.CouponSystemException;
 
 public class CustomerDaoDb implements CustomerDao {
 
 	@Override
 	public boolean isCustomerExists(String email, String password) throws CouponSystemException {
-		
 
 		Connection con = ConnectionPool.getInstance().getConnection();
 		String sql = "select *from customer where email=? and password=? ";
@@ -29,7 +30,7 @@ public class CustomerDaoDb implements CustomerDao {
 		} finally {
 			ConnectionPool.getInstance().restoreConnection(con);
 		}
-		
+
 	}
 
 	@Override
@@ -89,7 +90,7 @@ public class CustomerDaoDb implements CustomerDao {
 
 	@Override
 	public void deleteCustomer(int customerId) throws CouponSystemException {
-		
+
 		Connection con = ConnectionPool.getInstance().getConnection();
 		String sql = "select *from customer where id=? ";
 		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
@@ -110,7 +111,6 @@ public class CustomerDaoDb implements CustomerDao {
 			ConnectionPool.getInstance().restoreConnection(con);
 		}
 
-
 	}
 
 	@Override
@@ -128,7 +128,8 @@ public class CustomerDaoDb implements CustomerDao {
 				customer.setLastName(rs.getString("first_name"));
 				customer.setEmail(rs.getString("email"));
 				customer.setPassword(rs.getString("password"));
-			
+				customer.setCoupons(getAllCouponOfCustomer(rs.getInt(1)));
+				
 				return customer;
 			} else {
 				throw new CouponSystemException("the customer: " + customerId + " is not exist");
@@ -140,14 +141,11 @@ public class CustomerDaoDb implements CustomerDao {
 		} finally {
 			ConnectionPool.getInstance().restoreConnection(con);
 		}
-		
-		
-		
+
 	}
 
 	@Override
 	public List<Customer> getAllCustomer() throws CouponSystemException {
-
 
 		Connection con = ConnectionPool.getInstance().getConnection();
 		String sql = "select *from customer";
@@ -162,6 +160,7 @@ public class CustomerDaoDb implements CustomerDao {
 				customer.setLastName(rs.getString("first_name"));
 				customer.setEmail(rs.getString("email"));
 				customer.setPassword(rs.getString("password"));
+				customer.setCoupons(getAllCouponOfCustomer(rs.getInt(1)));
 				customers.add(customer);
 			}
 
@@ -175,4 +174,81 @@ public class CustomerDaoDb implements CustomerDao {
 		}
 
 	}
+
+	public boolean isEmailCustomerExists(String email) throws CouponSystemException {
+
+		Connection con = ConnectionPool.getInstance().getConnection();
+		String sql = "select *from customer where email=?";
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, email);
+
+			ResultSet rs = pstmt.executeQuery();
+			return rs.next();
+
+		} catch (SQLException e) {
+			throw new CouponSystemException("isEmailCustomerExists faild", e);
+		} finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
+
+	}
+
+	public boolean isCustomerIdChanged(int customerId) throws CouponSystemException {
+
+		Connection con = ConnectionPool.getInstance().getConnection();
+		String sql = "select *from customer where id = ?";
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, customerId);
+			ResultSet rs = pstmt.executeQuery();
+			return rs.next();
+
+		} catch (SQLException e) {
+			throw new CouponSystemException("isCustomerExists faild", e);
+		} finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
+
+	}
+
+	/**
+	 * returns all coupons of customer by his name
+	 *
+	 */
+	public List<Coupon> getAllCouponOfCustomer(int customerId) throws CouponSystemException {
+
+		Connection con = ConnectionPool.getInstance().getConnection();
+		String sql = "select *from coupon where id in (select coupon_id from customer_coupon where customer_id = ?)";
+		// "delete from customer_coupon where coupon_id in (select id from coupon where
+		// company_id = ?)";
+		List<Coupon> coupons = new ArrayList<>();
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, customerId);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Coupon coupon = new Coupon();
+				coupon.setId(rs.getInt("id"));
+				coupon.setCompanyId(rs.getInt("company_id"));
+				coupon.setCategory(Category.valueOf(rs.getString("category")));
+				coupon.setTitle(rs.getString("title"));
+				coupon.setDescription(rs.getString("description"));
+				coupon.setStartDate(rs.getDate("start_date").toLocalDate());
+				coupon.setEndDate(rs.getDate("end_date").toLocalDate());
+				coupon.setAmount(rs.getInt("amount"));
+				coupon.setPrice(rs.getDouble("price"));
+				coupon.setImage(rs.getString("image"));
+				coupons.add(coupon);
+
+			}
+
+			return coupons;
+
+		} catch (SQLException e) {
+			throw new CouponSystemException("getAllCoupon faild", e);
+
+		} finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
+
+	}
+
 }

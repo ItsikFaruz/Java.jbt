@@ -94,13 +94,13 @@ public class CompanyDaoDb implements CompanyDao {
 	public void deleteCompany(int companyID) throws CouponSystemException {
 		Connection con = ConnectionPool.getInstance().getConnection();
 
-			String sql = "delete from company where id = ? ";
-			try (PreparedStatement pstmt = con.prepareStatement(sql);) {
-				pstmt.setInt(1, companyID);
-				int rowCount = pstmt.executeUpdate();
-				if (rowCount == 0) {
-			throw new CouponSystemException("ERROR: the company:" + companyID + " Id not exist");
-				
+		String sql = "delete from company where id = ? ";
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, companyID);
+			int rowCount = pstmt.executeUpdate();
+			if (rowCount == 0) {
+				throw new CouponSystemException("ERROR: the company:" + companyID + " Id not exist");
+
 			}
 		} catch (SQLException e) {
 			throw new CouponSystemException("delete company faild", e);
@@ -125,7 +125,7 @@ public class CompanyDaoDb implements CompanyDao {
 				company.setPassword(cmp.getString("password"));
 				return company;
 			} else {
-				throw new CouponSystemException("the company:" + companyID+ "is not exist");
+				throw new CouponSystemException("the company ID : " + companyID + " is not exist");
 			}
 		} catch (SQLException e) {
 
@@ -165,23 +165,67 @@ public class CompanyDaoDb implements CompanyDao {
 		}
 
 	}
-	
-	public void deleteCompanyCouponPurchase (int companyId) throws CouponSystemException {
-		
+
+	/**
+	 * Deletes purchased coupons
+	 *
+	 */
+	public void deleteCompanyCouponPurchase(int companyId) throws CouponSystemException {
+
 		Connection con = ConnectionPool.getInstance().getConnection();
 		String sql = "delete from customer_coupon where coupon_id in (select id from coupon where company_id = ?)";
 		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setInt(1, companyId);
 			pstmt.executeUpdate();
-			
-			
-			
-	}catch (SQLException e) {
-		throw new CouponSystemException("deleteCompanyCouponPurchase faild", e);
 
-	} finally {
-		ConnectionPool.getInstance().restoreConnection(con);
-	}
+		} catch (SQLException e) {
+			throw new CouponSystemException("deleteCompanyCouponPurchase faild", e);
+
+		} finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
 
 	}
+
+	/**
+	 * check if company name or company email exist, return true or false
+	 */
+	@Override
+	public boolean isCompanyExistByNameOrEmail(String name, String email) throws CouponSystemException {
+		Connection con = ConnectionPool.getInstance().getConnection();
+		String sql = "select *from company where name = ? or email = ?";
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			ResultSet rs = pstmt.executeQuery();
+			return rs.next();
+
+		} catch (SQLException e) {
+			throw new CouponSystemException("isCompanyExistByNameOrEmail faild", e);
+		} finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
+	}
+	
+	
+	
+	public boolean checkIfIdOrNameChanged (int id , String name) throws CouponSystemException {
+		Connection con = ConnectionPool.getInstance().getConnection();
+		String sql = "select *from company where id =? and name = ?";
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, id);
+			pstmt.setString(2, name);
+			ResultSet rs = pstmt.executeQuery();
+			return rs.next();
+			
+		} catch (SQLException e) {
+			throw new CouponSystemException("checkIfIdOrNameChanged", e);
+		} finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
+	}
+	
+
+	
+	
 }

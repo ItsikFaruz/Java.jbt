@@ -20,4 +20,8 @@ public interface CompanyDao {
 	Company getOneCompany(int companyID) throws CouponSystemException;
 
 	void deleteCompanyCouponPurchase (int companyId) throws CouponSystemException;
+	
+	boolean isCompanyExistByNameOrEmail(String name , String email) throws CouponSystemException;
+	
+	boolean checkIfIdOrNameChanged (int id , String name) throws CouponSystemException ;
 }

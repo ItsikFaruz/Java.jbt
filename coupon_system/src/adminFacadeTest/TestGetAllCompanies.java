@@ -1,29 +1,31 @@
-package test;
+package adminFacadeTest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import coupon.core.beans.Company;
-import coupon.core.dao.CompanyDao;
-import coupon.core.dao.CompanyDaoDb;
 import coupon.core.dao.ConnectionPool;
 import coupon.core.exception.CouponSystemException;
+import coupon.core.facades.AdminFacade;
 
-public class test1 {
+public class TestGetAllCompanies {
 
 	public static void main(String[] args) {
-		
-		
 		try {
-			Company cmp = new Company(0, "grop", "@d@", "12d34");
-			CompanyDao dao = new CompanyDaoDb();
-			int id = dao.addCompany(cmp);
-		
-			
-			System.out.println("created company" + id);
-			System.out.println(cmp);
+
+			AdminFacade admin = new AdminFacade();
+
+			List<Company> allcompnies = new ArrayList<>();
+			allcompnies = admin.getAllCompanies();
+
+			for (Company company : allcompnies) {
+				System.out.println(company);
+			}
+
 		} catch (CouponSystemException e) {
-			
-			
+
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				ConnectionPool.getInstance().closeAllConnections();
 				System.out.println("all connections closed");
@@ -31,8 +33,7 @@ public class test1 {
 				e.printStackTrace();
 			}
 		}
-		
-	
+
 	}
 
 }
