@@ -223,9 +223,9 @@ public class CouponDaoDb implements CouponDao {
 		Connection con = ConnectionPool.getInstance().getConnection();
 
 		String sql = "delete from coupon where company_id = ? ";
-		try (PreparedStatement pstmt2 = con.prepareStatement(sql);) {
-			pstmt2.setInt(1, companyId);
-			int rowCount = pstmt2.executeUpdate();
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, companyId);
+			int rowCount = pstmt.executeUpdate();
 			if (rowCount == 0) {
 				throw new CouponSystemException("ERROR: the coupons of company: " + companyId + " Id not exist");
 
@@ -255,8 +255,22 @@ public class CouponDaoDb implements CouponDao {
 		}
 	}
 	
+	public boolean checkDuplicateTitle(int companyId , String couponTitle) throws CouponSystemException {
+	Connection con = ConnectionPool.getInstance().getConnection();
+
+	String sql = "select *from coupon where company_id = ? and title = ? ";
+	try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+		pstmt.setInt(1, companyId);
+		pstmt.setString(2,couponTitle);
+		ResultSet rs = pstmt.executeQuery();
+		return rs.next() ;
 	
+	} catch (SQLException e) {
+		throw new CouponSystemException("checkDuplicateTitle faild", e);
+	} finally {
+		ConnectionPool.getInstance().restoreConnection(con);
+	}
 	
-	
+	}
 	
 }

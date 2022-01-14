@@ -24,4 +24,8 @@ public interface CouponDao {
 	void deleteAllCompanyCoupons(int companyId) throws CouponSystemException ;
 	
 	void deleteAllCouponPurchaseOfCustomer(int customerId ) throws CouponSystemException;
+	
+	boolean checkDuplicateTitle(int companyId , String couponTitle) throws CouponSystemException;
+	
+	
 }

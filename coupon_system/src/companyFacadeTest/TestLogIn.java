@@ -1,23 +1,19 @@
-package adminFacadeTest;
+package companyFacadeTest;
 
-import coupon.core.beans.Customer;
 import coupon.core.dao.ConnectionPool;
 import coupon.core.exception.CouponSystemException;
-import coupon.core.facades.AdminFacade;
+import coupon.core.facades.CompanyFacade;
 
-public class TestAddCustomer {
+public class TestLogIn {
 
 	public static void main(String[] args) {
+
 		try {
-			Customer c1 = new Customer(0, "laffla", "lolo", "gffaga", "16ff4");
 
-			AdminFacade admin = new AdminFacade();
+			CompanyFacade companyfacade = new CompanyFacade();
 
-			int id = admin.addCustomer(c1);
+			System.out.println(companyfacade.login("@@", "1234"));
 
-			System.out.println("customer" + id  +" added" );
-
-			System.out.println(c1);
 		} catch (CouponSystemException e) {
 
 			e.printStackTrace();

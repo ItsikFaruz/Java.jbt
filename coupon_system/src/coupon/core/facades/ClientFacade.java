@@ -6,6 +6,7 @@ import coupon.core.dao.CouponDao;
 import coupon.core.dao.CouponDaoDb;
 import coupon.core.dao.CustomerDao;
 import coupon.core.dao.CustomerDaoDb;
+import coupon.core.exception.CouponSystemException;
 
 public abstract class ClientFacade {
 
@@ -14,7 +15,7 @@ public abstract class ClientFacade {
 	protected CouponDao couponDao = new CouponDaoDb();
 	
 
-	public abstract boolean login (String email , String password);
+	public abstract boolean login (String email , String password) throws CouponSystemException;
 		
 	
 		
