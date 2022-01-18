@@ -11,8 +11,8 @@ public class TestAddCoupon {
 
 	public static void main(String[] args) {
 		
-		Coupon coupon1 = new Coupon(0,5, Coupon.Category.values()[4], "ppp", "bascket", LocalDate.of(2010, 12, 11),
-				LocalDate.of(2022, 10, 15), 5, 50, "lona");
+		Coupon coupon1 = new Coupon(0,6, Coupon.Category.values()[4], "ttt", "ttt", LocalDate.of(2010, 12, 11),
+				LocalDate.of(2022, 10, 15), 0, 50, "lona");
 		try {
 
 			CompanyFacade companyfacade = new CompanyFacade();

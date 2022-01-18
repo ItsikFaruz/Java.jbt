@@ -49,6 +49,9 @@ public class CompanyDaoDb implements CompanyDao {
 		}
 	}
 
+	/**
+	 *	checks if company exist by email and password
+	 */
 	@Override
 	public boolean isCompanyExist(String email, String password) throws CouponSystemException {
 
@@ -209,7 +212,7 @@ public class CompanyDaoDb implements CompanyDao {
 	
 	
 	
-	public boolean checkIfIdOrNameChanged (int id , String name) throws CouponSystemException {
+	public boolean checkIfIdOrNameExist (int id , String name) throws CouponSystemException {
 		Connection con = ConnectionPool.getInstance().getConnection();
 		String sql = "select *from company where id =? and name = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
@@ -225,7 +228,38 @@ public class CompanyDaoDb implements CompanyDao {
 		}
 	}
 	
+	/**
+	 * gets company email and password and return the id  
+	 * @param email
+	 * @param password
+	 * @return company ID
+	 * @throws CouponSystemException
+	 */
+	public int getCompanyId(String email , String password) throws CouponSystemException {
+		Connection con = ConnectionPool.getInstance().getConnection();
+		String sql = "select id from company where email = ? and password = ?";
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, email);
+			pstmt.setString(2, password);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+			int id = rs.getInt("id");
+			return id ;
+			}
+			
+			 else {
+				throw new CouponSystemException("ERROR: inccorect email or password ");
+			}
+		} catch (SQLException e) {
 
+			throw new CouponSystemException("getOneCompany faild", e);
+
+		} finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
+
+	}
 	
 	
 }

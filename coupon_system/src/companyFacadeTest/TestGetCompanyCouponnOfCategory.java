@@ -1,19 +1,21 @@
 package companyFacadeTest;
 
+import coupon.core.beans.Coupon.Category;
 import coupon.core.dao.ConnectionPool;
 import coupon.core.exception.CouponSystemException;
 import coupon.core.facades.CompanyFacade;
 
-public class TestLogIn {
+public class TestGetCompanyCouponnOfCategory {
 
 	public static void main(String[] args) {
-
+		
 		try {
 
-			CompanyFacade companyfacade = new CompanyFacade("@@", "1234");
-
-			System.out.println(companyfacade.login(companyfacade.getEmail(),companyfacade.getPassword()));
-
+			CompanyFacade companyfacade = new CompanyFacade("@$@$","55");
+			
+			
+			System.out.println(companyfacade.getCompanyCouponsByCategory(Category.TRAVEL));
+			
 		} catch (CouponSystemException e) {
 
 			e.printStackTrace();

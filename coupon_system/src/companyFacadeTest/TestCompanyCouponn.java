@@ -4,16 +4,17 @@ import coupon.core.dao.ConnectionPool;
 import coupon.core.exception.CouponSystemException;
 import coupon.core.facades.CompanyFacade;
 
-public class TestLogIn {
+public class TestCompanyCouponn {
 
 	public static void main(String[] args) {
-
+		
 		try {
 
-			CompanyFacade companyfacade = new CompanyFacade("@@", "1234");
-
-			System.out.println(companyfacade.login(companyfacade.getEmail(),companyfacade.getPassword()));
-
+			CompanyFacade companyfacade = new CompanyFacade("@@","1234");
+			
+			
+			System.out.println(companyfacade.getCompanyCoupon());
+			
 		} catch (CouponSystemException e) {
 
 			e.printStackTrace();

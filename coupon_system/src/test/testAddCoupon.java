@@ -12,8 +12,10 @@ public class testAddCoupon {
 
 	public static void main(String[] args) {
 
-		Coupon coupon1 = new Coupon(0,4, Coupon.Category.values()[2], "vecation", "road", LocalDate.of(2010, 12, 11),
-				LocalDate.of(2022, 12, 15), 10, 25, "gggg");
+		
+		//Coupon coupon2 = new Coupon(10);
+		Coupon coupon1 = new Coupon(0,4, Coupon.Category.values()[3], "sea", "fun", LocalDate.of(2010, 12, 11),
+				LocalDate.of(2022, 01, 01), 10, 25, "gggg");
 
 		CouponDao couponDao = new CouponDaoDb();
 

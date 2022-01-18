@@ -23,5 +23,7 @@ public interface CompanyDao {
 	
 	boolean isCompanyExistByNameOrEmail(String name , String email) throws CouponSystemException;
 	
-	boolean checkIfIdOrNameChanged (int id , String name) throws CouponSystemException ;
+	boolean checkIfIdOrNameExist (int id , String name) throws CouponSystemException ;
+	
+	int getCompanyId(String email , String password) throws CouponSystemException ;
 }

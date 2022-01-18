@@ -42,8 +42,8 @@ public class AdminFacade extends ClientFacade {
 	 */
 	public void updateCompany(Company company) throws CouponSystemException {
 
-		if (!this.companyDao.checkIfIdOrNameChanged(company.getId(), company.getName())) {
-			throw new CouponSystemException("updateCompany failed - id and name don`t match or don`t exist");
+		if (!this.companyDao.checkIfIdOrNameExist(company.getId(), company.getName())) {
+			throw new CouponSystemException("updateCompany failed - id and name dons`t match or dons`t exist");
 		}
 		this.companyDao.updateCompany(company);
 	}
@@ -116,7 +116,7 @@ public class AdminFacade extends ClientFacade {
 	}
 	
 	/**
-	 * deletes a customer and all his purchase
+	 * deletes a customer and all his purchases
 	 * @param customerId
 	 * @throws CouponSystemException
 	 */

@@ -23,6 +23,13 @@ public class Coupon {
 	public Coupon() {
 	}
 
+	
+	public Coupon(int id) {
+		super();
+		this.id = id;
+	}
+
+
 	public Coupon(int id, int companyId, Category category, String title, String description, LocalDate startDate,
 			LocalDate endDate, int amount, double price, String image) {
 		super();

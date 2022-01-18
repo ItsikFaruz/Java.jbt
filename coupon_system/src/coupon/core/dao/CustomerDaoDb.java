@@ -251,4 +251,67 @@ public class CustomerDaoDb implements CustomerDao {
 
 	}
 
+	public boolean checksCoupnPurchased(int customerId, int couponId) throws CouponSystemException {
+
+		Connection con = ConnectionPool.getInstance().getConnection();
+		String sql = "select *from customer_coupuon where customer_id=? and coupon_id =? ";
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, customerId);
+			pstmt.setInt(2, couponId);
+			ResultSet rs = pstmt.executeQuery();
+			return rs.next();
+
+		} catch (SQLException e) {
+			throw new CouponSystemException("isCustomerExists faild", e);
+		} finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
+
+	}
+	
+	public boolean checkCouponPurchased(String email , String password ,Coupon coupon) throws CouponSystemException {
+		Connection con = ConnectionPool.getInstance().getConnection();
+		String sql = "select coupon_id from customer_coupon where customer_id in (select id from customer where email=? and password=?)";
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, email);
+			pstmt.setString(2, password);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				if (rs.getInt("coupon_id") == (coupon.getId())) {
+				return true;
+				}
+			}	
+				return false;
+			
+		} catch (SQLException e) {
+
+			throw new CouponSystemException("checkCouponPurchased faild", e);
+
+		} finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
+
+	}
+	
+	public int getCustomerId(String email, String password) throws CouponSystemException {
+
+		Connection con = ConnectionPool.getInstance().getConnection();
+		String sql = "select id from customer where email=? and password=? ";
+		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, email);
+			pstmt.setString(2, password);
+			ResultSet rs = pstmt.executeQuery();
+			rs.next();
+			int id = rs.getInt("id");
+			return id;
+
+		} catch (SQLException e) {
+			throw new CouponSystemException("getIdCustomer faild", e);
+		} finally {
+			ConnectionPool.getInstance().restoreConnection(con);
+		}
+
+	}
+
+	
 }

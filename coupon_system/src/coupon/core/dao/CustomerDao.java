@@ -25,5 +25,10 @@ public interface CustomerDao {
 	boolean isCustomerIdChanged(int customerId) throws CouponSystemException;
 	
 	List<Coupon> getAllCouponOfCustomer(int customerId) throws CouponSystemException;
+	
+	boolean checksCoupnPurchased(int customerId, int couponId) throws CouponSystemException;
+	
+	boolean checkCouponPurchased(String email , String password ,Coupon coupon) throws CouponSystemException;
 
+    int getCustomerId(String email, String password) throws CouponSystemException;
 }
