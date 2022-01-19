@@ -13,7 +13,7 @@ public class TestLogIn {
 			CustomerFacade customerFacade = new CustomerFacade("izik", "1514");
 
 			System.out.println(customerFacade.login(customerFacade.getEmail(), customerFacade.getPassword()));
-
+			System.out.println("customer: " + customerFacade.getId() + " connected");
 		} catch (CouponSystemException e) {
 
 			e.printStackTrace();

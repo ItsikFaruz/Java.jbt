@@ -9,9 +9,9 @@ public class TestUpdateCustomer {
 
 	public static void main(String[] args) {
 		try {
-			Customer c1 = new Customer(9, "lala", "lolo", "gaga", "1614");
+			Customer c1 = new Customer(10, "lala", "lolo", "gaaaga", "1614");
 
-			AdminFacade admin = new AdminFacade();
+			AdminFacade admin = new AdminFacade("admin@admin.com" , "admin");
 
 			admin.updateCustomer(c1);
 

@@ -11,11 +11,11 @@ public class TestAddCoupon {
 
 	public static void main(String[] args) {
 		
-		Coupon coupon1 = new Coupon(0,6, Coupon.Category.values()[4], "ttt", "ttt", LocalDate.of(2010, 12, 11),
+		Coupon coupon1 = new Coupon(0,11, Coupon.Category.values()[4], "ttat", "ttat", LocalDate.of(2010, 12, 11),
 				LocalDate.of(2022, 10, 15), 0, 50, "lona");
 		try {
 
-			CompanyFacade companyfacade = new CompanyFacade();
+			CompanyFacade companyfacade = new CompanyFacade("@@","1234");
 			
 			companyfacade.addCoupon(coupon1);
 			

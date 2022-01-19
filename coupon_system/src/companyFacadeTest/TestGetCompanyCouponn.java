@@ -4,7 +4,7 @@ import coupon.core.dao.ConnectionPool;
 import coupon.core.exception.CouponSystemException;
 import coupon.core.facades.CompanyFacade;
 
-public class TestCompanyCouponn {
+public class TestGetCompanyCouponn {
 
 	public static void main(String[] args) {
 		

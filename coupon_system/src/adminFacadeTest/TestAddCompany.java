@@ -9,13 +9,13 @@ public class TestAddCompany {
 
 	public static void main(String[] args) {
 		try {
-			Company aaa = new Company(0, "beitar", "aa", "fff");
+			Company aaa = new Company(0, "hat", "phza", "555");
 
-			AdminFacade admin = new AdminFacade();
+			AdminFacade admin = new AdminFacade("admin@admin.com" , "admin");
 
 			int id = admin.addCompany(aaa);
 
-			System.out.println("created company" + id);
+			System.out.println("created company:" + id + " id");
 
 			System.out.println(aaa);
 		} catch (CouponSystemException e) {

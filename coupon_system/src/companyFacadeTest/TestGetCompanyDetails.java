@@ -10,7 +10,7 @@ public class TestGetCompanyDetails {
 		
 		try {
 
-			CompanyFacade companyfacade = new CompanyFacade("@$@$","555");
+			CompanyFacade companyfacade = new CompanyFacade("@@","1234");
 			
 			
 			System.out.println(companyfacade.getCompanyDetails());

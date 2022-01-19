@@ -9,7 +9,7 @@ public class TestCouponPurchase {
 
 	public static void main(String[] args) {
 
-		Coupon coupon1 = new Coupon(0);
+		Coupon coupon1 = new Coupon(11);
 				
 		
 		try {
@@ -17,6 +17,7 @@ public class TestCouponPurchase {
 			CustomerFacade customerFacade = new CustomerFacade("izik", "1514");
 
 			customerFacade.purchaseCoupon(coupon1);
+			System.out.println(coupon1.getId() + " purchsed");
 
 		} catch (CouponSystemException e) {
 

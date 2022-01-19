@@ -9,9 +9,9 @@ public class TestGetOneCompany {
 	public static void main(String[] args) {
 		try {
 
-			AdminFacade admin = new AdminFacade();
+			AdminFacade admin = new AdminFacade("admin@admin.com" , "admin");
 
-			System.out.println(admin.getOneCompany(3));
+			System.out.println(admin.getOneCompany(5));
 
 		} catch (CouponSystemException e) {
 

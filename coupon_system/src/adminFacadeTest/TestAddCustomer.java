@@ -11,11 +11,11 @@ public class TestAddCustomer {
 		try {
 			Customer c1 = new Customer(0, "laffla", "lolo", "gffaga", "16ff4");
 
-			AdminFacade admin = new AdminFacade();
+			AdminFacade admin = new AdminFacade("admin@admin.com", "admin");
 
 			int id = admin.addCustomer(c1);
 
-			System.out.println("customer" + id  +" added" );
+			System.out.println("customer: " + id  +" added" );
 
 			System.out.println(c1);
 		} catch (CouponSystemException e) {

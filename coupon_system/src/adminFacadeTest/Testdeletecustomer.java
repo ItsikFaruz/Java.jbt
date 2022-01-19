@@ -10,9 +10,9 @@ public class Testdeletecustomer {
 		try {
 			
 
-			AdminFacade admin = new AdminFacade();
+			AdminFacade admin = new AdminFacade("admin@admin.com", "admin");
 
-			admin.deleteCustomer(13);;
+			admin.deleteCustomer(9);;
 
 			System.out.println("customer deleted ");
 

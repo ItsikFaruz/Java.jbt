@@ -10,11 +10,11 @@ public class TestdeleteCoupon {
 		
 		try {
 
-			CompanyFacade companyfacade = new CompanyFacade();
+			CompanyFacade companyfacade = new CompanyFacade("@@","1234");
 			
-			companyfacade.deleteCoupon(11);
+			companyfacade.deleteCoupon(15);
 			
-			System.out.println("deleted");
+			System.out.println("coupon deleted");
 		} catch (CouponSystemException e) {
 
 			e.printStackTrace();

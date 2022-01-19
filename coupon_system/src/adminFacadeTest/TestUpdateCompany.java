@@ -9,9 +9,9 @@ public class TestUpdateCompany {
 
 	public static void main(String[] args) {
 		try {
-			Company aaa = new Company(9, "beitar", "adsa", "adsa");
+			Company aaa = new Company(9, "beitar", "@100", "777");
 
-			AdminFacade admin = new AdminFacade();
+			AdminFacade admin = new AdminFacade("admin@admin.com" , "admin");
 
 			admin.updateCompany(aaa);
 

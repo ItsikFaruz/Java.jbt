@@ -11,7 +11,7 @@ public class TestGetCompanyCouponnOfCategory {
 		
 		try {
 
-			CompanyFacade companyfacade = new CompanyFacade("@$@$","55");
+			CompanyFacade companyfacade = new CompanyFacade("@@","1234");
 			
 			
 			System.out.println(companyfacade.getCompanyCouponsByCategory(Category.TRAVEL));

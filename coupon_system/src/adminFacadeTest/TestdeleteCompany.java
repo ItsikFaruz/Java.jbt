@@ -10,9 +10,9 @@ public class TestdeleteCompany {
 		try {
 			
 
-			AdminFacade admin = new AdminFacade();
+			AdminFacade admin = new AdminFacade("admin@admin.com", "admin");
 
-			admin.deleteCompanyAndPurchase(5);
+			admin.deleteCompanyAndPurchase(7);
 
 			System.out.println("company deleted ");
 

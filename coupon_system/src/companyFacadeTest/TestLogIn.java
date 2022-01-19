@@ -11,9 +11,10 @@ public class TestLogIn {
 		try {
 
 			CompanyFacade companyfacade = new CompanyFacade("@@", "1234");
-
+			
+			
 			System.out.println(companyfacade.login(companyfacade.getEmail(),companyfacade.getPassword()));
-
+			System.out.println(companyfacade.getId());
 		} catch (CouponSystemException e) {
 
 			e.printStackTrace();

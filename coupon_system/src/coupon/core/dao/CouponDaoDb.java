@@ -226,11 +226,8 @@ public class CouponDaoDb implements CouponDao {
 		String sql = "delete from coupon where company_id = ? ";
 		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setInt(1, companyId);
-			int rowCount = pstmt.executeUpdate();
-			if (rowCount == 0) {
-				throw new CouponSystemException("ERROR: the coupons of company: " + companyId + " Id not exist");
-
-			}
+			 pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			throw new CouponSystemException("deleteAllCompanyCoupons faild", e);
 		} finally {

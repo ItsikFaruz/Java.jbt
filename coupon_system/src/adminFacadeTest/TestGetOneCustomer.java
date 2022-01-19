@@ -10,11 +10,11 @@ public class TestGetOneCustomer {
 		try {
 			
 
-			AdminFacade admin = new AdminFacade();
+			AdminFacade admin = new AdminFacade("admin@admin.com" , "admin");
 
 			
 
-			System.out.println(admin.getOneCustomer(6) );
+			System.out.println(admin.getOneCustomer(9));
 
 		} catch (CouponSystemException e) {
 

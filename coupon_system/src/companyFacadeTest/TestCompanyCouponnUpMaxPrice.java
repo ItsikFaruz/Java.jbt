@@ -12,7 +12,7 @@ public class TestCompanyCouponnUpMaxPrice {
 
 			CompanyFacade companyfacade = new CompanyFacade("@@", "1234");
 
-			System.out.println(companyfacade.getCompanyCoupons(22D));
+			System.out.println(companyfacade.getCompanyCoupons(50D));
 
 		} catch (CouponSystemException e) {
 

@@ -8,15 +8,46 @@ import coupon.core.exception.CouponSystemException;
 
 public class AdminFacade extends ClientFacade {
 
-	private final String email = "admin@admin.com";
-	private final String password = "admin";
-
-
+	private final String emailSystem = "admin@admin.com";
+	private final String passwordSystem = "admin";
+	private String email;
+	private String password;
+	
+	
+	
+	
+	
+	
+	public AdminFacade(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
 
 	@Override
 	public boolean login(String email, String password) {
-		return email.equals(this.email) && password.equals(this.password);
+		email=this.email;
+		password=this.password;
+		return email.equals(this.emailSystem) && password.equals(this.passwordSystem);
 
+	}
+	
+	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	/**
@@ -27,7 +58,10 @@ public class AdminFacade extends ClientFacade {
 	 * @throws CouponSystemException
 	 */
 	public int addCompany(Company company) throws CouponSystemException {
-
+		if(!this.login(this.email, this.password))
+			throw new CouponSystemException("login Administor faild: wrong password or email");
+		
+		
 		if (this.companyDao.isCompanyExistByNameOrEmail(company.getName(), company.getEmail())) {
 			throw new CouponSystemException("addCompany failed - name or email alredy exist");
 		}
@@ -41,7 +75,9 @@ public class AdminFacade extends ClientFacade {
 	 * @throws CouponSystemException
 	 */
 	public void updateCompany(Company company) throws CouponSystemException {
-
+		if(!this.login(this.email, this.password))
+			throw new CouponSystemException("login Administor faild: wrong password or email");
+		
 		if (!this.companyDao.checkIfIdOrNameExist(company.getId(), company.getName())) {
 			throw new CouponSystemException("updateCompany failed - id and name dons`t match or dons`t exist");
 		}
@@ -55,7 +91,9 @@ public class AdminFacade extends ClientFacade {
 	 * @throws CouponSystemException
 	 */
 	public void deleteCompanyAndPurchase(int coumpanyId) throws CouponSystemException {
-
+		if(!this.login(this.email, this.password))
+			throw new CouponSystemException("login Administor faild: wrong password or email");
+		
 		this.companyDao.deleteCompanyCouponPurchase(coumpanyId);
 		this.couponDao.deleteAllCompanyCoupons(coumpanyId);
 		this.companyDao.deleteCompany(coumpanyId);
@@ -69,6 +107,9 @@ public class AdminFacade extends ClientFacade {
 	 * @throws CouponSystemException
 	 */
 	public ArrayList<Company> getAllCompanies() throws CouponSystemException {
+		if(!this.login(this.email, this.password))
+			throw new CouponSystemException("login Administor faild: wrong password or email");
+		
 		return (ArrayList<Company>) this.companyDao.getAllCompanies();
 
 	}
@@ -81,6 +122,8 @@ public class AdminFacade extends ClientFacade {
 	 * @throws CouponSystemException
 	 */
 	public Company getOneCompany(int companyId) throws CouponSystemException {
+		if(!this.login(this.email, this.password))
+			throw new CouponSystemException("login Administor faild: wrong password or email");
 
 		return this.companyDao.getOneCompany(companyId);
 	}
@@ -93,6 +136,8 @@ public class AdminFacade extends ClientFacade {
 	 * @throws CouponSystemException
 	 */
 	public int addCustomer(Customer customer) throws CouponSystemException {
+		if(!this.login(this.email, this.password))
+			throw new CouponSystemException("login Administor faild: wrong password or email");
 
 		if (this.customerDao.isEmailCustomerExists(customer.getEmail())) {
 			throw new CouponSystemException("addCustomer failed - customer email allready exist ");
@@ -108,9 +153,11 @@ public class AdminFacade extends ClientFacade {
 	 * @throws CouponSystemException
 	 */
 	public void updateCustomer(Customer customer) throws CouponSystemException {
-
+		if(!this.login(this.email, this.password))
+			throw new CouponSystemException("login Administor faild: wrong password or email");
+		
 		if (!this.customerDao.isCustomerIdChanged(customer.getId())) {
-			throw new CouponSystemException("updateCustomer failed - can`t change customer Id ");
+			throw new CouponSystemException("updateCustomer failed - The customer ID cannot be changed ");
 		}
 		this.customerDao.updateCustomer(customer);
 	}
@@ -121,6 +168,8 @@ public class AdminFacade extends ClientFacade {
 	 * @throws CouponSystemException
 	 */
 	public void deleteCustomer (int customerId) throws CouponSystemException {
+		if(!this.login(this.email, this.password))
+			throw new CouponSystemException("login Administor faild: wrong password or email");
 		
 		this.couponDao.deleteAllCouponPurchaseOfCustomer(customerId);
 		this.customerDao.deleteCustomer(customerId);
@@ -132,12 +181,17 @@ public class AdminFacade extends ClientFacade {
 	 * @throws CouponSystemException
 	 */
 	public ArrayList<Customer> getAllCustomers () throws CouponSystemException {
+		if(!this.login(this.email, this.password))
+			throw new CouponSystemException("login Administor faild: wrong password or email");
 		
 		return (ArrayList<Customer>) this.customerDao.getAllCustomer();
 		
 	}
 	
 	public Customer getOneCustomer (int customerId) throws CouponSystemException {
+		if(!this.login(this.email, this.password))
+			throw new CouponSystemException("login Administor faild: wrong password or email");
+		
 		return this.customerDao.getOneCustomer(customerId);
 	}
 	

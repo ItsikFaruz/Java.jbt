@@ -2,6 +2,7 @@ package app.core;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+
 import app.core.dao.company.CompanyDao;
 import app.core.dao.coupon.CouponDao;
 
@@ -26,6 +27,11 @@ public class App {
 			couponDao.addCoupon();
 			couponDao.doWork();
 
+			
 		}
 	}
 }
+
+
+
+
