@@ -9,7 +9,7 @@ public class TestCouponPurchase {
 
 	public static void main(String[] args) {
 
-		Coupon coupon1 = new Coupon(9);
+		Coupon coupon1 = new Coupon(0);
 				
 		
 		try {

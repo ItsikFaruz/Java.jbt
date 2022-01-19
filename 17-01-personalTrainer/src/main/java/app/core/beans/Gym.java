@@ -6,60 +6,31 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class Gym {
+
+	private RunningTrainer runningTrainer;
+	private SwimmingTrainer swimmingTrainer;
+	private TennisTrainer tennisTrainer;
 	
-	private RunningTrainer running;
-	
-	private SwimmingTrainer swimm;
-	
-	private TennisTrainer tennis;
-	
-	
-	
-	public Gym(RunningTrainer running, SwimmingTrainer swimm, TennisTrainer tennis) {
+	public Gym(RunningTrainer runningTrainer, SwimmingTrainer swimmingTrainer, TennisTrainer tennisTrainer) {
 		super();
-		this.running = running;
-		this.swimm = swimm;
-		this.tennis = tennis;
+		this.runningTrainer = runningTrainer;
+		this.swimmingTrainer = swimmingTrainer;
+		this.tennisTrainer = tennisTrainer;
 	}
 
-
-
-	public RunningTrainer getRunning() {
-		return running;
+	public RunningTrainer getRunningTrainer() {
+		return runningTrainer;
 	}
 
-
-
-	public void setRunning(RunningTrainer running) {
-		this.running = running;
+	public SwimmingTrainer getSwimmingTrainer() {
+		return swimmingTrainer;
 	}
 
-
-
-	public SwimmingTrainer getSwimm() {
-		return swimm;
+	public TennisTrainer getTennisTrainer() {
+		return tennisTrainer;
 	}
 
-
-
-	public void setSwimm(SwimmingTrainer swimm) {
-		this.swimm = swimm;
-	}
-
-
-
-	public TennisTrainer getTennis() {
-		return tennis;
-	}
-
-
-
-	public void setTennis(TennisTrainer tennis) {
-		this.tennis = tennis;
-	}
+	
+}		
 	
 	
-	
-	
-
-}
