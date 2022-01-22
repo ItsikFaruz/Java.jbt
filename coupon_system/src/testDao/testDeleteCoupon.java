@@ -1,11 +1,11 @@
-package test;
+package testDao;
 
 import coupon.core.dao.ConnectionPool;
 import coupon.core.dao.CouponDao;
 import coupon.core.dao.CouponDaoDb;
 import coupon.core.exception.CouponSystemException;
 
-public class testAddCouponPurchseCoupon {
+public class testDeleteCoupon {
 
 	public static void main(String[] args) {
 
@@ -14,9 +14,9 @@ public class testAddCouponPurchseCoupon {
 		CouponDao couponDao = new CouponDaoDb();
 
 		try {
-			couponDao.addCouponPurchase(6, 10);
+			couponDao.deleteCoupon(2);
 
-			System.out.println("couponPurchase added");
+			System.out.println("coupon deleted");
 		} catch (CouponSystemException e) {
 			e.printStackTrace();
 		} finally {

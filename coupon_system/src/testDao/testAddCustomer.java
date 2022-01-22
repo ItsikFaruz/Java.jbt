@@ -1,21 +1,22 @@
-package test;
+package testDao;
 
+import coupon.core.beans.Customer;
 import coupon.core.dao.ConnectionPool;
-import coupon.core.dao.CustomerDao;
 import coupon.core.dao.CustomerDaoDb;
 import coupon.core.exception.CouponSystemException;
 
-public class testCustomer {
+public class testAddCustomer {
 
 	public static void main(String[] args) {
 		
-		//Customer c1 = new Customer(3,"bbb","go","@@@","12345");
+		Customer c1 = new Customer(0,"dddda","ddd","%$%$","66665");
 		
 		try {
-			CustomerDao castumerDao = new CustomerDaoDb();
-		System.out.println( castumerDao.getAllCustomer());
+			CustomerDaoDb castumerDao = new CustomerDaoDb();
 			
-			System.out.println("customer show");
+		System.out.println( castumerDao.addCustomer(c1));
+			
+			System.out.println("customer " +c1.getId() + " added");
 		} catch (CouponSystemException e) { 
 			
 			

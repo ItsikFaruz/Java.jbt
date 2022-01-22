@@ -1,4 +1,4 @@
-package test;
+package testDao;
 
 import java.sql.Connection;
 

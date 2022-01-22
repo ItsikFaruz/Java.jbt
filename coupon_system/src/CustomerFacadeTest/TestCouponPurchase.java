@@ -9,13 +9,13 @@ public class TestCouponPurchase {
 
 	public static void main(String[] args) {
 
-		Coupon coupon1 = new Coupon(11);
+		Coupon coupon1 = new Coupon(9);
 				
 		
 		try {
 
-			CustomerFacade customerFacade = new CustomerFacade("izik", "1514");
-
+			CustomerFacade customerFacade = new CustomerFacade();
+			customerFacade.login("zz", "zz");
 			customerFacade.purchaseCoupon(coupon1);
 			System.out.println(coupon1.getId() + " purchsed");
 

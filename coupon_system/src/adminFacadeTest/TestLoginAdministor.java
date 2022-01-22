@@ -1,14 +1,16 @@
 package adminFacadeTest;
 
+import coupon.core.exception.CouponSystemException;
 import coupon.core.facades.AdminFacade;
+import coupon.core.facades.ClientFacade;
 
 public class TestLoginAdministor {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CouponSystemException {
 
-		AdminFacade admin = new AdminFacade("admin@admin.com", "admin");
-
-	    System.out.println(admin.login(admin.getEmail(), admin.getPassword())); 	
+		ClientFacade admin = new AdminFacade();
+		
+	    System.out.println(admin.login("admin@admin.com", "admin"))	;
 
 	}
 

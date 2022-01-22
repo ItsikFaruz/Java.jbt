@@ -1,22 +1,33 @@
-package test;
+package testDao;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import coupon.core.beans.Coupon;
 import coupon.core.dao.ConnectionPool;
 import coupon.core.dao.CouponDao;
 import coupon.core.dao.CouponDaoDb;
 import coupon.core.exception.CouponSystemException;
 
-public class testDeleteCoupon {
+public class testgetAllCoupon {
 
 	public static void main(String[] args) {
 
 
 
 		CouponDao couponDao = new CouponDaoDb();
-
+		
+		List<Coupon> coupons = new ArrayList<>();
 		try {
-			couponDao.deleteCoupon(2);
-
-			System.out.println("coupon deleted");
+		
+		coupons= couponDao.getAllCoupon();
+		
+		for (Coupon coupon : coupons) {
+			System.out.println(coupon);
+		}
+		
+		
+			System.out.println("\n\tEND\n");
 		} catch (CouponSystemException e) {
 			e.printStackTrace();
 		} finally {

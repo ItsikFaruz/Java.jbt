@@ -9,13 +9,13 @@ public class TestUpdateCustomer {
 
 	public static void main(String[] args) {
 		try {
-			Customer c1 = new Customer(10, "lala", "lolo", "gaaaga", "1614");
+			Customer c1 = new Customer(6, "lala", "lolo", "gaaaga", "1614");
 
-			AdminFacade admin = new AdminFacade("admin@admin.com" , "admin");
-
+			AdminFacade admin = new AdminFacade();
+			
 			admin.updateCustomer(c1);
 
-			System.out.println("customer" + c1.getId() +" updated" );
+			System.out.println("customer: " + c1.getId() +" updated" );
 
 			System.out.println(c1);
 		} catch (CouponSystemException e) {

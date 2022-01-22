@@ -11,7 +11,7 @@ public class TestUpdateCompany {
 		try {
 			Company aaa = new Company(9, "beitar", "@100", "777");
 
-			AdminFacade admin = new AdminFacade("admin@admin.com" , "admin");
+			AdminFacade admin = new AdminFacade();
 
 			admin.updateCompany(aaa);
 

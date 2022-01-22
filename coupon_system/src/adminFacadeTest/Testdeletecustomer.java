@@ -10,7 +10,7 @@ public class Testdeletecustomer {
 		try {
 			
 
-			AdminFacade admin = new AdminFacade("admin@admin.com", "admin");
+			AdminFacade admin = new AdminFacade();
 
 			admin.deleteCustomer(9);;
 

@@ -10,10 +10,10 @@ public class TestLogIn {
 
 		try {
 
-			CustomerFacade customerFacade = new CustomerFacade("izik", "1514");
+			CustomerFacade customerFacade = new CustomerFacade();
 
-			System.out.println(customerFacade.login(customerFacade.getEmail(), customerFacade.getPassword()));
-			System.out.println("customer: " + customerFacade.getId() + " connected");
+			
+			System.out.println(customerFacade.login("zz", "zz"));
 		} catch (CouponSystemException e) {
 
 			e.printStackTrace();

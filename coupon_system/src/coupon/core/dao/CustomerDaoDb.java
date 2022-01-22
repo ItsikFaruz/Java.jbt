@@ -269,12 +269,11 @@ public class CustomerDaoDb implements CustomerDao {
 
 	}
 	
-	public boolean checkCouponPurchased(String email , String password ,Coupon coupon) throws CouponSystemException {
+	public boolean checkCouponPurchased(int customerId ,Coupon coupon) throws CouponSystemException {
 		Connection con = ConnectionPool.getInstance().getConnection();
-		String sql = "select coupon_id from customer_coupon where customer_id in (select id from customer where email=? and password=?)";
+		String sql = "select coupon_id from customer_coupon where customer_id = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
-			pstmt.setString(1, email);
-			pstmt.setString(2, password);
+			pstmt.setInt(1, customerId);	
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				if (rs.getInt("coupon_id") == (coupon.getId())) {

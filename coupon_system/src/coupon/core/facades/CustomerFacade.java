@@ -7,21 +7,18 @@ public class CustomerFacade extends ClientFacade {
 
 	private String email;
 	private String password;
-	private int id ;
+	private int id  ;
 
-	
-	public CustomerFacade(String email, String password) {
-		super();
-		this.email = email;
-		this.password = password;
+
+	public CustomerFacade() {
 	}
 
 	public int getId() {
 		return id;
 	}
 	
-	private void setId () throws CouponSystemException {
-		this.id = this.customerDao.getCustomerId(this.email, this.password);
+	private void setId (String email , String password) throws CouponSystemException {
+		this.id = this.customerDao.getCustomerId(email, password);
 	}
 	
 	
@@ -51,24 +48,22 @@ public class CustomerFacade extends ClientFacade {
 	@Override
 	public boolean login(String email, String password) throws CouponSystemException {
 
-		if (!this.customerDao.isCustomerExists(this.getEmail(), this.getPassword())) {
-			throw new CouponSystemException("login faild: wrong password or email");
+		if (!this.customerDao.isCustomerExists(email,password)){
+			return false;
 		}
-		this.setId();
+		this.setId(email, password);
 		return true;
 	}
 
 	
 	public void purchaseCoupon (Coupon coupon) throws CouponSystemException {
 		
-		this.login(this.getEmail(), this.getPassword());
-		
 		
 		if (!couponDao.checkCouponExist(coupon)) {
 			throw new CouponSystemException("ERROR: the coupon not exist in the system ");
 		}
 		
-		if (this.customerDao.checkCouponPurchased(this.getEmail(), this.getPassword(), coupon)){
+		if (this.customerDao.checkCouponPurchased(this.id, coupon)){
 			throw new CouponSystemException("the coupon: " + coupon.getId() + " has already been purchased, can`t buy again"); 
 		}
 	
@@ -80,10 +75,11 @@ public class CustomerFacade extends ClientFacade {
 				throw new CouponSystemException("ERROR: The coupon has expired ");
 		}
 			
-			int customeId = this.customerDao.getCustomerId(this.getEmail(),this.getPassword());
-			this.couponDao.addCouponPurchase(customeId, coupon.getId());
+			this.couponDao.addCouponPurchase(this.id, coupon.getId());
 			couponDao.SubtractsFromAmount(coupon);
 	}
-
+	
+		
+	
 	
 }

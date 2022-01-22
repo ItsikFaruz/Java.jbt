@@ -11,46 +11,27 @@ public class CompanyFacade extends ClientFacade {
 
 	private String email;
 	private String password;
-	private int id = -1;
-	
-//	
-//	public CompanyFacade() {
-//	}
-	
+	private int id;
+
+	public CompanyFacade() {
+	}
+
 	public CompanyFacade(String email, String password) {
-		super();
 		this.email = email;
 		this.password = password;
+
 	}
-	
-	/**
-	 *	log in: Checks if password and user are correct.
-	 *	return true or false
-	 *	if true, also set id to company 
-	 *
-	 */
-	@Override
-	public boolean login(String email, String password) throws CouponSystemException {
-		
-		if (!this.companyDao.isCompanyExist(this.email, this.password)) {
-			throw new CouponSystemException("login faild: wrong password or email");
-			
-		}
-		this.setId();
-		return true;
-	}
-	
+
 	public int getId() {
 		return id;
 	}
 
-	private void setId() throws CouponSystemException {
-		
-			this.id= (this.companyDao.getCompanyId(this.email, this.password));
-		
+	private void setId(String email,String password) throws CouponSystemException {
+
+		this.id = (this.companyDao.getCompanyId(email, password));
+
 	}
 
-	
 	public String getEmail() {
 		return email;
 	}
@@ -67,17 +48,32 @@ public class CompanyFacade extends ClientFacade {
 		this.password = password;
 	}
 
+	/**
+	 * log in: Checks if password and user are correct. return true or false if
+	 * true, also set id to company
+	 *
+	 */
+	@Override
+	public boolean login(String email, String password) throws CouponSystemException {
 
+		if (!this.companyDao.isCompanyExist(email,password)) {
+			return false;
+
+		}
+		
+		this.setId(email,password);
+		return true;
+	}
 
 	/**
-	 * adds new coupon only in is not exist 
+	 * adds new coupon only in is not exist
+	 * 
 	 * @param coupon
 	 * @throws CouponSystemException
 	 */
 	public void addCoupon(Coupon coupon) throws CouponSystemException {
-		this.login(this.email, this.password);
 
-		if (this.couponDao.checkDuplicateTitle(coupon.getCompanyId(), coupon.getTitle())) {
+		if (this.couponDao.checkDuplicateTitle(this.id, coupon.getTitle())) {
 			throw new CouponSystemException(
 					"ERROR: company: " + coupon.getCompanyId() + " allready has a coupon title: " + coupon.getTitle());
 		}
@@ -86,13 +82,13 @@ public class CompanyFacade extends ClientFacade {
 
 	/**
 	 * update coupon without changes coupon id or company id
+	 * 
 	 * @param coupon
 	 * @throws CouponSystemException
 	 */
 	public void updateCoupon(Coupon coupon) throws CouponSystemException {
-		this.login(this.email, this.password);
 
-		if (!this.couponDao.checkIfIdOrCompanyIdExist(coupon.getId(), coupon.getCompanyId())) {
+		if (!this.couponDao.checkIfIdOrCompanyIdExist(coupon.getId(), this.id)) {
 			throw new CouponSystemException(
 					"updateCoupon faild - coupon id or company id dons`t match or dons`t exist");
 		}
@@ -101,44 +97,31 @@ public class CompanyFacade extends ClientFacade {
 	}
 
 	public void deleteCoupon(int couponId) throws CouponSystemException {
-		this.login(this.email, this.password);
 
 		this.couponDao.deleteCouponPurchases(couponId);
 		this.couponDao.deleteCoupon(couponId);
 	}
 
 	public ArrayList<Coupon> getCompanyCoupon() throws CouponSystemException {
-		this.login(this.email, this.password);
-		
-		int companyId = this.companyDao.getCompanyId(this.getEmail(), this.password);
-		return (ArrayList<Coupon>) this.couponDao.getAllCouponOfCompany(companyId);
+
+		return (ArrayList<Coupon>) this.couponDao.getAllCouponOfCompany(this.id);
 
 	}
 
 	public ArrayList<Coupon> getCompanyCouponsByCategory(Category category) throws CouponSystemException {
-		if(!this.login(this.email, this.password))
-			throw new CouponSystemException("login faild: wrong password or email");
-		
-		int companyId = this.companyDao.getCompanyId(this.getEmail(), this.password);
-		return (ArrayList<Coupon>) this.couponDao.getAllCouponOfCompany(companyId , category);
+
+		return (ArrayList<Coupon>) this.couponDao.getAllCouponOfCompany(this.id, category);
 	}
-	
+
 	public ArrayList<Coupon> getCompanyCoupons(Double maxPrice) throws CouponSystemException {
-		this.login(this.email, this.password);
-		
-		
-		int companyId = this.companyDao.getCompanyId(this.getEmail(), this.password);
-		return (ArrayList<Coupon>) this.couponDao.getAllCouponOfCompanyUpTOMax(companyId , maxPrice);
+
+		return (ArrayList<Coupon>) this.couponDao.getAllCouponOfCompanyUpTOMax(this.id, maxPrice);
 	}
-	
-	
+
 	public Company getCompanyDetails() throws CouponSystemException {
-		this.login(this.email, this.password);
-		
-		int comanyId = this.companyDao.getCompanyId(this.getEmail(), this.password);
-		return this.companyDao.getOneCompany(comanyId);
-		
+
+		return this.companyDao.getOneCompany(this.id);
+
 	}
-	
-	
+
 }

@@ -1,35 +1,38 @@
-package test;
+package testDao;
 
+import coupon.core.beans.Company;
+import coupon.core.dao.CompanyDao;
+import coupon.core.dao.CompanyDaoDb;
 import coupon.core.dao.ConnectionPool;
-import coupon.core.dao.CouponDao;
-import coupon.core.dao.CouponDaoDb;
 import coupon.core.exception.CouponSystemException;
 
-public class testDeleteCouponPurchseCoupon {
+public class test1 {
 
 	public static void main(String[] args) {
-
-
-
-		CouponDao couponDao = new CouponDaoDb();
-
+		
+		
 		try {
-			couponDao.deleteCouponPurchase(1, 4);
-
-			System.out.println(" Coupon Purchase deleted");
+			Company cmp = new Company(0, "grop", "@d@", "12d34");
+			CompanyDao dao = new CompanyDaoDb();
+			int id = dao.addCompany(cmp);
+		
+			
+			System.out.println("created company" + id);
+			System.out.println(cmp);
 		} catch (CouponSystemException e) {
+			
+			
 			e.printStackTrace();
-		} finally {
-
+		}finally {
 			try {
 				ConnectionPool.getInstance().closeAllConnections();
 				System.out.println("all connections closed");
 			} catch (CouponSystemException e) {
-
 				e.printStackTrace();
 			}
 		}
-
+		
+	
 	}
 
 }

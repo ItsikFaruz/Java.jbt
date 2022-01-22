@@ -9,7 +9,7 @@ public class TestGetOneCompany {
 	public static void main(String[] args) {
 		try {
 
-			AdminFacade admin = new AdminFacade("admin@admin.com" , "admin");
+			AdminFacade admin = new AdminFacade();
 
 			System.out.println(admin.getOneCompany(5));
 

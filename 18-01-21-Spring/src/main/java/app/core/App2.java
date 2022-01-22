@@ -27,7 +27,6 @@ public class App2 {
 			companyDao.addCompany(new Company());
 			companyDao.addCompany(new Company());
 			companyDao.addCompany(new Company());
-			companyDao.addCompany(new Company());
 			companyDao.sayHello();
 
 			

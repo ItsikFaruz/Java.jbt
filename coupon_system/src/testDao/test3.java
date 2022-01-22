@@ -1,4 +1,4 @@
-package test;
+package testDao;
 
 import coupon.core.dao.CompanyDao;
 import coupon.core.dao.CompanyDaoDb;

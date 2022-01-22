@@ -14,7 +14,10 @@ public class TestLogIn {
 			
 			
 			System.out.println(companyfacade.login(companyfacade.getEmail(),companyfacade.getPassword()));
+			
 			System.out.println(companyfacade.getId());
+			
+			
 		} catch (CouponSystemException e) {
 
 			e.printStackTrace();

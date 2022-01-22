@@ -13,7 +13,7 @@ public class TestGetAllCompanies {
 	public static void main(String[] args) {
 		try {
 
-			AdminFacade admin = new AdminFacade("admin@admin.com", "admin");
+			AdminFacade admin = new AdminFacade();
 
 			List<Company> allcompnies = new ArrayList<>();
 			allcompnies = admin.getAllCompanies();

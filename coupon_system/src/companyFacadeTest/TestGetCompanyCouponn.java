@@ -10,7 +10,7 @@ public class TestGetCompanyCouponn {
 		
 		try {
 
-			CompanyFacade companyfacade = new CompanyFacade("@@","1234");
+			CompanyFacade companyfacade = new CompanyFacade();
 			
 			
 			System.out.println(companyfacade.getCompanyCoupon());

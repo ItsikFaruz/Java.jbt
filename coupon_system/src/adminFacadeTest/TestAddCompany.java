@@ -9,9 +9,9 @@ public class TestAddCompany {
 
 	public static void main(String[] args) {
 		try {
-			Company aaa = new Company(0, "hat", "phza", "555");
+			Company aaa = new Company(0, "zzz", "zzz", "zzz");
 
-			AdminFacade admin = new AdminFacade("admin@admin.com" , "admin");
+			AdminFacade admin = new AdminFacade();
 
 			int id = admin.addCompany(aaa);
 
