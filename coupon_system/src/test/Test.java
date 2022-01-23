@@ -45,7 +45,7 @@ public class Test {
 	}
 
 	private void doAdminTest() throws CouponSystemException {
-		System.out.println("================ ADMIN TEST");
+		System.out.println("================ ADMIN TEST ==============");
 		AdminFacade af = (AdminFacade) LoginManager.getInstance().logIn("admin@admin.com", "admin",
 				ClientType.ADMINISTRATOR);
 		if (af != null) {
@@ -53,7 +53,7 @@ public class Test {
 		} else {
 			System.out.println("admin login failed");
 		}
-		// ================add company=============================
+		// ==================add company==============================
 		Company company1 = new Company(0, "aaa", "aaa", "aaa");
 		Company company2 = new Company(0, "bbb", "bbb", "bbb");
 		Company company3 = new Company(0, "ccc", "ccc", "ccc");
@@ -63,11 +63,11 @@ public class Test {
 		System.out.println(company1 + " has been added");
 		System.out.println(company2 + " has been added");
 		System.out.println(company3 + " has been added");
-		// ==================update company==========================
+		// ==================update company===========================
 		company1.setEmail("@@@");
 		af.updateCompany(company1);
 		System.out.println("Company: id = " + company1.getId() + " has been updated to " + company1);
-		// ==================delete company==========================
+		// ==================delete company===========================
 		af.deleteCompanyAndPurchase(company1.getId());
 		System.out.println("Company: id = " + company1.getId() + " has been deleted");
 		// ==================get all company==========================
@@ -81,7 +81,7 @@ public class Test {
 		// ==================get one company==========================
 		System.out.print("got one company : ");
 		System.out.println(af.getOneCompany(company2.getId()));
-		// ===================add customers==========================
+		// ===================add customers===========================
 		Customer customer1 = new Customer(0, "aa", "aa", "aa", "aa");
 		Customer customer2 = new Customer(0, "bb", "bb", "bb", "bb");
 		Customer customer3 = new Customer(0, "cc", "cc", "cc", "cc");
@@ -92,12 +92,12 @@ public class Test {
 		System.out.println(customer2 + "has been added");
 		System.out.println(customer3 + "has been added");
 		System.out.println("-----------------------------------------------------------");
-		// ====================update customer==========================
+		// ====================update customer=========================
 		customer1.setEmail("@@");
 		customer1.setFirstName("dd");
 		af.updateCustomer(customer1);
 		System.out.println("Customer: id = " + customer1.getId() + " has been updated to " + customer1);
-		// ====================delete customer==========================
+		// ====================delete customer=========================
 		af.deleteCustomer(customer1.getId());
 		System.out.println("Customer: id = " + customer1.getId() + " has been deleted");
 		// ====================get all customer==========================
@@ -107,7 +107,9 @@ public class Test {
 		for (Customer customer : allCustomers) {
 			System.out.println(customer);
 		}
-
+		// ====================got one customer=======================
+		System.out.print("got one customer : ");
+		System.out.println(af.getOneCustomer(customer2.getId()));
 	}
 
 	private void doCompanyTest() {
