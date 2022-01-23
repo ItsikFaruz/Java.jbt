@@ -29,7 +29,7 @@ public class Test {
 			System.out.println("Error: " + e.getMessage());
 			e.printStackTrace();
 		} finally {
-			System.out.println("system shutdown in 5 seconds");
+			System.out.println("\nsystem shutdown in 5 seconds");
 			try {
 				try {
 					Thread.sleep(5000);
@@ -69,8 +69,8 @@ public class Test {
 		System.out.println("Company: id = " + company1.getId() + " has been updated to " + company1);
 		// ==================delete company==========================
 		af.deleteCompanyAndPurchase(company1.getId());
-		System.out.println("Company: id = " +company1.getId() + " has been deleted");
-		//==================get all company==========================
+		System.out.println("Company: id = " + company1.getId() + " has been deleted");
+		// ==================get all company==========================
 		System.out.println("List of all companies below: ");
 		List<Company> allcompnies = new ArrayList<>();
 		allcompnies = af.getAllCompanies();
@@ -78,10 +78,10 @@ public class Test {
 			System.out.println(company);
 		}
 		System.out.println("-----------------------------------------------------------");
-		//==================get one company==========================
+		// ==================get one company==========================
 		System.out.print("got one company : ");
 		System.out.println(af.getOneCompany(company2.getId()));
-		//===================add customers==========================
+		// ===================add customers==========================
 		Customer customer1 = new Customer(0, "aa", "aa", "aa", "aa");
 		Customer customer2 = new Customer(0, "bb", "bb", "bb", "bb");
 		Customer customer3 = new Customer(0, "cc", "cc", "cc", "cc");
@@ -92,12 +92,22 @@ public class Test {
 		System.out.println(customer2 + "has been added");
 		System.out.println(customer3 + "has been added");
 		System.out.println("-----------------------------------------------------------");
-		//====================update customer==========================
+		// ====================update customer==========================
 		customer1.setEmail("@@");
 		customer1.setFirstName("dd");
-		customer1.setId(5);
 		af.updateCustomer(customer1);
 		System.out.println("Customer: id = " + customer1.getId() + " has been updated to " + customer1);
+		// ====================delete customer==========================
+		af.deleteCustomer(customer1.getId());
+		System.out.println("Customer: id = " + customer1.getId() + " has been deleted");
+		// ====================get all customer==========================
+		System.out.println("List of all customers below: ");
+		List<Customer> allCustomers = new ArrayList<>();
+		allCustomers = af.getAllCustomers();
+		for (Customer customer : allCustomers) {
+			System.out.println(customer);
+		}
+
 	}
 
 	private void doCompanyTest() {
