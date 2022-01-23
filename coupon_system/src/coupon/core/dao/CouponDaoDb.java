@@ -34,6 +34,7 @@ public class CouponDaoDb implements CouponDao {
 			ResultSet rsId = pstmt.getGeneratedKeys();
 			rsId.next();
 			int id = rsId.getInt(1);
+			coupon.setId(id);
 			return id;
 
 		} catch (SQLException e) {
@@ -276,7 +277,7 @@ public class CouponDaoDb implements CouponDao {
 	 * 
 	 * returns true if there exists or false if they not
 	 */
-	public boolean checkIfIdOrCompanyIdExist(int couponId, int companyId) throws CouponSystemException {
+	public boolean checkIfIdAndCompanyIdExist(int couponId, int companyId) throws CouponSystemException {
 		Connection con = ConnectionPool.getInstance().getConnection();
 		String sql = "select *from coupon where id =? and company_id = ?";
 		try (PreparedStatement pstmt = con.prepareStatement(sql);) {

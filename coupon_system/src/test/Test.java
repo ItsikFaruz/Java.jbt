@@ -1,14 +1,17 @@
 package test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import coupon.core.CouponExpiratinDailyJob;
 import coupon.core.beans.Company;
+import coupon.core.beans.Coupon;
 import coupon.core.beans.Customer;
 import coupon.core.dao.ConnectionPool;
 import coupon.core.exception.CouponSystemException;
 import coupon.core.facades.AdminFacade;
+import coupon.core.facades.CompanyFacade;
 import logInManager.core.LoginManager;
 import logInManager.core.clients.ClientType;
 
@@ -21,8 +24,8 @@ public class Test {
 		try {
 			startSystem();
 			// the test ====================================================================
-			doAdminTest();
-//			doCompanyTest();
+//			doAdminTest();
+			doCompanyTest();
 //			doCustomerTest();
 			// =============================================================================
 		} catch (CouponSystemException e) {
@@ -71,7 +74,7 @@ public class Test {
 		af.deleteCompanyAndPurchase(company1.getId());
 		System.out.println("Company: id = " + company1.getId() + " has been deleted");
 		// ==================get all company==========================
-		System.out.println("List of all companies below: ");
+		System.out.println("All Compnies: ");
 		List<Company> allcompnies = new ArrayList<>();
 		allcompnies = af.getAllCompanies();
 		for (Company company : allcompnies) {
@@ -112,9 +115,43 @@ public class Test {
 		System.out.println(af.getOneCustomer(customer2.getId()));
 	}
 
-	private void doCompanyTest() {
-		// TODO Auto-generated method stub
-
+	private void doCompanyTest() throws CouponSystemException {
+		System.out.println("================ COMPANY TEST ==============");
+		CompanyFacade company = (CompanyFacade) LoginManager.getInstance().logIn("bbb", "bbb",
+				ClientType.COMPANY);
+		if (company != null) {
+			System.out.println("company logged in successfully");
+		} else {
+			System.out.println("company login failed");
+		}
+		// ==================add coupon==============================
+		Coupon coupon1 = new Coupon(0,67, Coupon.Category.values()[4], "aaaa", "aaaa", LocalDate.of(2010, 12, 11),
+				LocalDate.of(2022, 10, 15), 10, 10, "aaaa");
+		Coupon coupon2 = new Coupon(0,67, Coupon.Category.values()[4], "bbbb", "bbbb", LocalDate.of(2010, 12, 11),
+				LocalDate.of(2022, 10, 15), 10, 10, "cccc");
+		Coupon coupon3 = new Coupon(0,68, Coupon.Category.values()[4], "cccc", "cccc", LocalDate.of(2010, 12, 11),
+				LocalDate.of(2022, 10, 15), 10, 10, "cccc");
+		company.addCoupon(coupon1);
+		company.addCoupon(coupon2);
+		company.addCoupon(coupon3);
+		System.out.println("added " +coupon1 );
+		System.out.println("added " +coupon2 );
+		System.out.println("added " +coupon3 );
+		System.out.println("-----------------------------------------------------------");
+		// ==================update coupon===========================
+		coupon1.setTitle("@@@@");
+		coupon1.setImage("@@@@");
+		coupon1.setDescription("@@@@");
+		company.updateCoupon(coupon1);
+		System.out.println("updated Coupon: " + coupon1.getId() + " to " + coupon1);
+		// ==================delete company===========================
+		company.deleteCoupon(coupon1.getId());
+		System.out.println("deleted Coupon: " + coupon1.getId());
+		
+		
+		
+		
+		
 	}
 
 	private void doCustomerTest() {

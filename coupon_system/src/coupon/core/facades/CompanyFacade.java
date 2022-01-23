@@ -77,7 +77,7 @@ public class CompanyFacade extends ClientFacade {
 			throw new CouponSystemException(
 					"ERROR: company: " + coupon.getCompanyId() + " allready has a coupon title: " + coupon.getTitle());
 		}
-		this.couponDao.addCoupon(coupon);
+		couponDao.addCoupon(coupon);
 	}
 
 	/**
@@ -88,9 +88,9 @@ public class CompanyFacade extends ClientFacade {
 	 */
 	public void updateCoupon(Coupon coupon) throws CouponSystemException {
 
-		if (!this.couponDao.checkIfIdOrCompanyIdExist(coupon.getId(), this.id)) {
+		if (!this.couponDao.checkIfIdAndCompanyIdExist(coupon.getId(), coupon.getCompanyId())) {
 			throw new CouponSystemException(
-					"updateCoupon faild - coupon id or company id dons`t match or dons`t exist");
+					"updateCoupon faild - It is not possible to change a companyId or CouponId");
 		}
 		this.couponDao.updateCoupon(coupon);
 

@@ -59,13 +59,13 @@ public class CouponExpiratinDailyJob implements Runnable {
 	public void startDailyJob() {
 		this.quit = false;
 		this.thread.start();
-		System.out.println("daily job stoped");
+		System.out.println("daily job started");
 		
 	}
 	public void stopDailyJob() {
 		this.quit = true;
 		this.thread.interrupt();
-		System.out.println("daily started");
+		System.out.println("daily stoped");
 	}
 	
 	

@@ -28,7 +28,7 @@ public interface CouponDao {
 	
 	boolean checkDuplicateTitle(int companyId , String couponTitle) throws CouponSystemException;
 	
-	boolean checkIfIdOrCompanyIdExist (int couponId , int companyId) throws CouponSystemException; 
+	boolean checkIfIdAndCompanyIdExist (int couponId , int companyId) throws CouponSystemException; 
 	
 	void deleteCouponPurchases(int couponId ) throws CouponSystemException ;
 	
