@@ -14,9 +14,6 @@ public class CouponExpiratinDailyJob implements Runnable {
 	private boolean quit;
 	private Thread thread = new Thread(this, "CouponExpiratinDailyJob");
 	
-	
-	
-	
 
 	public Thread getThread() {
 		return thread;
@@ -38,10 +35,10 @@ public class CouponExpiratinDailyJob implements Runnable {
 		while (!quit) {
 			try {
 				for (Coupon coupon : this.couponDao.getAllCoupon()) {
-					if (coupon.getEndDate().isAfter(LocalDate.now())) {
+					if (coupon.getEndDate().isBefore(LocalDate.now())) {
 						couponDao.deleteCouponPurchases(coupon.getId());
+						couponDao.deleteCoupon(coupon.getId());
 					}
-					couponDao.deleteCoupon(coupon.getId());
 				}
 				TimeUnit.DAYS.sleep(1);
 			
@@ -52,8 +49,6 @@ public class CouponExpiratinDailyJob implements Runnable {
 			}	
 		}
 	}
-
-	
 
 	
 	public void startDailyJob() {

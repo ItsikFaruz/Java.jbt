@@ -72,7 +72,7 @@ public class CompanyFacade extends ClientFacade {
 	 * @throws CouponSystemException
 	 */
 	public void addCoupon(Coupon coupon) throws CouponSystemException {
-
+		
 		if (this.couponDao.checkDuplicateTitle(this.id, coupon.getTitle())) {
 			throw new CouponSystemException(
 					"ERROR: company: " + coupon.getCompanyId() + " allready has a coupon title: " + coupon.getTitle());
