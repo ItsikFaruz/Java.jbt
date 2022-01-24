@@ -1,6 +1,10 @@
 package coupon.core.facades;
 
+import java.util.ArrayList;
+
 import coupon.core.beans.Coupon;
+import coupon.core.beans.Coupon.Category;
+import coupon.core.beans.Customer;
 import coupon.core.exception.CouponSystemException;
 
 public class CustomerFacade extends ClientFacade {
@@ -77,9 +81,22 @@ public class CustomerFacade extends ClientFacade {
 			
 			this.couponDao.addCouponPurchase(this.id, coupon.getId());
 			couponDao.SubtractsFromAmount(coupon);
-	}
+		}
 	
+		public ArrayList<Coupon> getCustomerCoupons () throws CouponSystemException {
+			return (ArrayList<Coupon>) customerDao.getAllCouponOfCustomer(this.id);
+		}
+		public ArrayList<Coupon> getCustomerCoupons (Category category) throws CouponSystemException {
+			return (ArrayList<Coupon>) customerDao.getAllCouponOfCustomer(this.id, category);
+		}
+		public ArrayList<Coupon> getCustomerCoupons (double maxPrice) throws CouponSystemException {
+			return (ArrayList<Coupon>) customerDao.getAllCouponOfCustomerBelwoMaxPrice(this.id, maxPrice);
+		}
 		
-	
-	
+		public Customer getCustomerDetails () throws CouponSystemException {
+			return customerDao.getOneCustomer(this.id);
+			
+		}
+		
+		
 }

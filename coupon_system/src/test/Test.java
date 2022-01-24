@@ -64,7 +64,7 @@ public class Test {
 		Company company2 = new Company(0, "bbb", "bbb", "bbb");
 		Company company3 = new Company(0, "ccc", "ccc", "ccc");
 		af.addCompany(company1);
-		System.out.println("added " + company1 );
+		System.out.println("added " + company1);
 		af.addCompany(company2);
 		System.out.println("added " + company2);
 		af.addCompany(company3);
@@ -126,8 +126,6 @@ public class Test {
 		System.out.println("-----------------------------------------------------------");
 	}
 
-	
-	
 	private void doCompanyTest() throws CouponSystemException {
 		System.out.println("====================== COMPANY TEST =======================");
 		CompanyFacade company = (CompanyFacade) LoginManager.getInstance().logIn("bbb", "bbb", ClientType.COMPANY);
@@ -138,12 +136,12 @@ public class Test {
 		}
 		System.out.println("-----------------------------------------------------------");
 		// ==================add coupon==============================
-		Coupon coupon1 = new Coupon(0, 95, Coupon.Category.FOOD, "aaaa", "aaaa", LocalDate.of(2010, 12, 11),
+		Coupon coupon1 = new Coupon(0, 98, Coupon.Category.FOOD, "aaaa", "aaaa", LocalDate.of(2010, 12, 11),
 				LocalDate.of(2025, 10, 15), 10, 10, "aaaa");
-		Coupon coupon2 = new Coupon(0, 95, Coupon.Category.TRAVEL, "bbbb", "bbbb", LocalDate.of(2010, 12, 11),
+		Coupon coupon2 = new Coupon(0, 98, Coupon.Category.TRAVEL, "bbbb", "bbbb", LocalDate.of(2010, 12, 11),
 				LocalDate.of(2022, 10, 15), 10, 10, "cccc");
-		Coupon coupon3 = new Coupon(0, 96, Coupon.Category.VACATION, "cccc", "cccc", LocalDate.of(2010, 12, 11),
-				LocalDate.of(2022, 10, 15), 10, 10, "cccc");
+		Coupon coupon3 = new Coupon(0, 99, Coupon.Category.VACATION, "cccc", "cccc", LocalDate.of(2010, 12, 11),
+				LocalDate.of(2022, 10, 15), 10, 30, "cccc");
 		company.addCoupon(coupon1);
 		System.out.println("added " + coupon1);
 		company.addCoupon(coupon2);
@@ -191,9 +189,6 @@ public class Test {
 		System.out.println(company.getCompanyDetails());
 	}
 
-	
-	
-	
 	private void doCustomerTest() throws CouponSystemException {
 		System.out.println("====================== CUSTOMER TEST =======================");
 		CustomerFacade customer = (CustomerFacade) LoginManager.getInstance().logIn("bb", "bb", ClientType.CUSTOMER);
@@ -203,19 +198,48 @@ public class Test {
 			System.out.println("customer login failed");
 		}
 		System.out.println("-----------------------------------------------------------");
-		Coupon coupon2 = new Coupon(135, 89, Coupon.Category.TRAVEL, "bbbb", "bbbb", LocalDate.of(2010, 12, 11),
+		// ========================coupon purchase=====================
+		Coupon coupon2 = new Coupon(138, 98, Coupon.Category.TRAVEL, "bbbb", "bbbb", LocalDate.of(2010, 12, 11),
 				LocalDate.of(2022, 10, 15), 10, 10, "cccc");
-		Coupon coupon3 = new Coupon(136, 90, Coupon.Category.VACATION, "cccc", "cccc", LocalDate.of(2010, 12, 11),
+		Coupon coupon3 = new Coupon(139, 99, Coupon.Category.VACATION, "cccc", "cccc", LocalDate.of(2010, 12, 11),
 				LocalDate.of(2020, 10, 15), 10, 10, "cccc");
 		customer.purchaseCoupon(coupon2);
-		System.out.println("customer: " + customer.getId() + " purchased " + coupon2 );
+		System.out.println("customer: " + customer.getId() + " purchased " + coupon2);
 		customer.purchaseCoupon(coupon3);
-		System.out.println("customer: " + customer.getId() + " purchased " + coupon3 );
+		System.out.println("customer: " + customer.getId() + " purchased " + coupon3);
+		System.out.println("-----------------------------------------------------------");
+		// ======================all customer coupon purchased=========
+		System.out.println("all customer :" + customer.getId() + " id coupon:");
+		ArrayList<Coupon> allCustomerCoupon = new ArrayList<>();
+		allCustomerCoupon =  customer.getCustomerCoupons();
+		for (Coupon coupon : allCustomerCoupon) {
+			System.out.println(coupon);
+		}
+		// ============all customer coupon purchased by category=======
+		System.out.println("-----------------------------------------------------------");
+		Category category = Category.TRAVEL;
+		System.out.println("all customer: " + customer.getId() + " id coupon by "+ category + " category: ");
+		ArrayList<Coupon> allCustomerCouponByCategory = new ArrayList<>();
+		allCustomerCouponByCategory = customer.getCustomerCoupons(category);
+		for (Coupon coupon : allCustomerCouponByCategory) {
+			System.out.println(coupon);
+		}
+		// ==========all customer coupon purchased below max price=====
+		System.out.println("-----------------------------------------------------------");
+		double maxPrice = 15;
+		System.out.println("all customer: " + customer.getId() + " id below "+ maxPrice + " Dollar: ");
+		ArrayList<Coupon> allCustomerCouponBelowMaxPrice = new ArrayList<>();
+		allCustomerCouponBelowMaxPrice = customer.getCustomerCoupons(maxPrice);
+		for (Coupon coupon : allCustomerCouponBelowMaxPrice) {
+			System.out.println(coupon);
+		}
+		System.out.println("-----------------------------------------------------------");
+		// ======================== customer details:==================
+		System.out.println("customer details:");
+		System.out.println(customer.getCustomerDetails());
 		System.out.println("-----------------------------------------------------------");
 		
 		
-		
-
 	}
 
 	private void startSystem() throws CouponSystemException {

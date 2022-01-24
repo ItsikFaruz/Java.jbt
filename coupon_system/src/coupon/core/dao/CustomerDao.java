@@ -4,6 +4,7 @@ import java.util.List;
 
 import coupon.core.beans.Coupon;
 import coupon.core.beans.Customer;
+import coupon.core.beans.Coupon.Category;
 import coupon.core.exception.CouponSystemException;
 
 public interface CustomerDao {
@@ -31,4 +32,10 @@ public interface CustomerDao {
 	boolean checkCouponPurchased(int customerId ,Coupon coupon) throws CouponSystemException;
 
     int getCustomerId(String email, String password) throws CouponSystemException;
+    
+    List<Coupon> getAllCouponOfCustomer(int customerId,  Category category ) throws CouponSystemException;
+    
+    List<Coupon> getAllCouponOfCustomerBelwoMaxPrice(int customerId,  Double maxPrice ) throws CouponSystemException;
+    
+    
 }
