@@ -227,8 +227,8 @@ public class CouponDaoDb implements CouponDao {
 		String sql = "delete from coupon where company_id = ? ";
 		try (PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setInt(1, companyId);
-			 pstmt.executeUpdate();
-			
+			pstmt.executeUpdate();
+
 		} catch (SQLException e) {
 			throw new CouponSystemException("deleteAllCompanyCoupons faild", e);
 		} finally {
@@ -466,10 +466,10 @@ public class CouponDaoDb implements CouponDao {
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
 			int amount = rs.getInt("amount");
-			if(amount > 0) {
+			if (amount > 0) {
 				return true;
 			}
-				return false;
+			return false;
 		} catch (SQLException e) {
 			throw new CouponSystemException("checkAvailable", e);
 		} finally {
@@ -486,9 +486,9 @@ public class CouponDaoDb implements CouponDao {
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
 			LocalDate endDate = rs.getDate("end_date").toLocalDate();
-			if(endDate.isAfter(LocalDate.now()))
+			if (endDate.isAfter(LocalDate.now()))
 				return true;
-			 else
+			else
 				return false;
 		} catch (SQLException e) {
 			throw new CouponSystemException("checkIfDateExpierd", e);
@@ -496,6 +496,5 @@ public class CouponDaoDb implements CouponDao {
 			ConnectionPool.getInstance().restoreConnection(con);
 		}
 	}
-	
-	
+
 }
