@@ -1,11 +1,11 @@
-package logInManager.core;
+package coupon.core.logInManager;
 
 import coupon.core.exception.CouponSystemException;
 import coupon.core.facades.AdminFacade;
 import coupon.core.facades.ClientFacade;
 import coupon.core.facades.CompanyFacade;
 import coupon.core.facades.CustomerFacade;
-import logInManager.core.clients.ClientType;
+import coupon.core.logInManager.clients.ClientType;
 
 public class LoginManager {
 

@@ -11,7 +11,13 @@ public class AdminFacade extends ClientFacade {
 	private final String email = "admin@admin.com";
 	private final String password = "admin";
 
-	
+	/**
+	 * Checks if password and email are correct
+	 * 
+	 * @param email
+	 * @param password
+	 * @return true or false
+	 */
 	@Override
 	public boolean login(String email, String password) {
 
@@ -49,9 +55,9 @@ public class AdminFacade extends ClientFacade {
 	}
 
 	/**
-	 * delete company and all her coupons and coupon purchase
+	 * delete company and all her coupons and coupon purchased
 	 * 
-	 * @param coumpanyId
+	 * @param coumpany id
 	 * @throws CouponSystemException
 	 */
 	public void deleteCompanyAndPurchase(int coumpanyId) throws CouponSystemException {
@@ -75,9 +81,6 @@ public class AdminFacade extends ClientFacade {
 	}
 
 	/**
-	 * get company ID and return the Company
-	 * 
-	 * @param companyId
 	 * @return Company
 	 * @throws CouponSystemException
 	 */
@@ -140,6 +143,11 @@ public class AdminFacade extends ClientFacade {
 
 	}
 
+	/**
+	 * @param customerId
+	 * @return customer details
+	 * @throws CouponSystemException
+	 */
 	public Customer getOneCustomer(int customerId) throws CouponSystemException {
 
 		return this.customerDao.getOneCustomer(customerId);

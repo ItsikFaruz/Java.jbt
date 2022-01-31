@@ -1,4 +1,4 @@
-package coupon.core;
+package coupon.core.dailyJob;
 
 import java.time.LocalDate;
 import java.util.concurrent.TimeUnit;

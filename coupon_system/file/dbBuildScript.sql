@@ -1,3 +1,6 @@
+create schema coupon_system ;
+use coupon_system;
+
 create table `company`(
 `id` int primary key auto_increment,
 `name` varchar (50),
@@ -34,3 +37,5 @@ primary key(`customer_id`, `coupon_id`),
 foreign key (`customer_id`) references `customer`(`id`),
 foreign key (`coupon_id`) references `coupon`(`id`)
 );
+
+

@@ -1,4 +1,4 @@
-package logInManager.core;
+package coupon.core.logInManager;
 
 public class clients {
 

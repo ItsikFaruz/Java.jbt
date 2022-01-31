@@ -4,18 +4,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import coupon.core.CouponExpiratinDailyJob;
 import coupon.core.beans.Company;
 import coupon.core.beans.Coupon;
 import coupon.core.beans.Coupon.Category;
+import coupon.core.dailyJob.CouponExpiratinDailyJob;
 import coupon.core.beans.Customer;
 import coupon.core.dao.ConnectionPool;
 import coupon.core.exception.CouponSystemException;
 import coupon.core.facades.AdminFacade;
 import coupon.core.facades.CompanyFacade;
 import coupon.core.facades.CustomerFacade;
-import logInManager.core.LoginManager;
-import logInManager.core.clients.ClientType;
+import coupon.core.logInManager.LoginManager;
+import coupon.core.logInManager.clients.ClientType;
 
 public class Test {
 
@@ -25,11 +25,13 @@ public class Test {
 		System.out.println("start test");
 		try {
 			startSystem();
-			// the test ====================================================================
-//			doAdminTest();
-//			doCompanyTest();
+		// the test ====================================================================
+
+			doAdminTest();
+			doCompanyTest();
 			doCustomerTest();
-			// =============================================================================
+		
+		// =============================================================================
 		} catch (CouponSystemException e) {
 			System.out.println("Error: " + e.getMessage());
 			e.printStackTrace();
@@ -48,9 +50,11 @@ public class Test {
 		}
 		System.out.println("end of test");
 	}
-
+	
+	
+	//*******************************ADMIN TEST************************************
 	private void doAdminTest() throws CouponSystemException {
-		System.out.println("================ ADMIN TEST ==============");
+		System.out.println("\n\n\n====================== ADMIN TEST =========================");
 		AdminFacade af = (AdminFacade) LoginManager.getInstance().logIn("admin@admin.com", "admin",
 				ClientType.ADMINISTRATOR);
 		if (af != null) {
@@ -126,8 +130,10 @@ public class Test {
 		System.out.println("-----------------------------------------------------------");
 	}
 
+	
+	//*********************************COMPANY TEST************************************
 	private void doCompanyTest() throws CouponSystemException {
-		System.out.println("====================== COMPANY TEST =======================");
+		System.out.println("\n\n\n====================== COMPANY TEST =======================");
 		CompanyFacade company = (CompanyFacade) LoginManager.getInstance().logIn("bbb", "bbb", ClientType.COMPANY);
 		if (company != null) {
 			System.out.println("company logged in successfully");
@@ -136,11 +142,11 @@ public class Test {
 		}
 		System.out.println("-----------------------------------------------------------");
 		// ==================add coupon==============================
-		Coupon coupon1 = new Coupon(0, 98, Coupon.Category.FOOD, "aaaa", "aaaa", LocalDate.of(2010, 12, 11),
+		Coupon coupon1 = new Coupon(0, 2, Coupon.Category.FOOD, "aaaa", "aaaa", LocalDate.of(2010, 12, 11),
 				LocalDate.of(2025, 10, 15), 10, 10, "aaaa");
-		Coupon coupon2 = new Coupon(0, 98, Coupon.Category.TRAVEL, "bbbb", "bbbb", LocalDate.of(2010, 12, 11),
+		Coupon coupon2 = new Coupon(0, 2, Coupon.Category.TRAVEL, "bbbb", "bbbb", LocalDate.of(2010, 12, 11),
 				LocalDate.of(2022, 10, 15), 10, 10, "cccc");
-		Coupon coupon3 = new Coupon(0, 99, Coupon.Category.VACATION, "cccc", "cccc", LocalDate.of(2010, 12, 11),
+		Coupon coupon3 = new Coupon(0, 3, Coupon.Category.VACATION, "cccc", "cccc", LocalDate.of(2010, 12, 11),
 				LocalDate.of(2022, 10, 15), 10, 30, "cccc");
 		company.addCoupon(coupon1);
 		System.out.println("added " + coupon1);
@@ -189,8 +195,10 @@ public class Test {
 		System.out.println(company.getCompanyDetails());
 	}
 
+	
+	//*******************************CUSTOMER TEST************************************
 	private void doCustomerTest() throws CouponSystemException {
-		System.out.println("====================== CUSTOMER TEST =======================");
+		System.out.println("\n\n\n====================== CUSTOMER TEST ======================");
 		CustomerFacade customer = (CustomerFacade) LoginManager.getInstance().logIn("bb", "bb", ClientType.CUSTOMER);
 		if (customer != null) {
 			System.out.println("customer logged in successfully");
@@ -199,9 +207,9 @@ public class Test {
 		}
 		System.out.println("-----------------------------------------------------------");
 		// ========================coupon purchase=====================
-		Coupon coupon2 = new Coupon(138, 98, Coupon.Category.TRAVEL, "bbbb", "bbbb", LocalDate.of(2010, 12, 11),
+		Coupon coupon2 = new Coupon(2, 2, Coupon.Category.TRAVEL, "bbbb", "bbbb", LocalDate.of(2010, 12, 11),
 				LocalDate.of(2022, 10, 15), 10, 10, "cccc");
-		Coupon coupon3 = new Coupon(139, 99, Coupon.Category.VACATION, "cccc", "cccc", LocalDate.of(2010, 12, 11),
+		Coupon coupon3 = new Coupon(3, 3, Coupon.Category.VACATION, "cccc", "cccc", LocalDate.of(2010, 12, 11),
 				LocalDate.of(2020, 10, 15), 10, 10, "cccc");
 		customer.purchaseCoupon(coupon2);
 		System.out.println("customer: " + customer.getId() + " purchased " + coupon2);
@@ -224,7 +232,7 @@ public class Test {
 		for (Coupon coupon : allCustomerCouponByCategory) {
 			System.out.println(coupon);
 		}
-		// ==========all customer coupon purchased below max price=====
+		// ========all customer coupon purchased below max price=======
 		System.out.println("-----------------------------------------------------------");
 		double maxPrice = 15;
 		System.out.println("all customer: " + customer.getId() + " id below "+ maxPrice + " Dollar: ");
@@ -237,7 +245,7 @@ public class Test {
 		// ======================== customer details:==================
 		System.out.println("customer details:");
 		System.out.println(customer.getCustomerDetails());
-		System.out.println("-----------------------------------------------------------");
+		System.out.println("-----------------------------------------------------------\n\n\n");
 		
 		
 	}
