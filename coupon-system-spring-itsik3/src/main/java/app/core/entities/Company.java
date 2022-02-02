@@ -1,5 +1,6 @@
 package app.core.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -7,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
@@ -29,8 +29,19 @@ public class Company {
 	private String email;
 	private String password;
 	
-	@OneToMany (cascade = CascadeType.ALL)
-	@JoinColumn(name="company_id")
+	@OneToMany (mappedBy = "company" ,  cascade = CascadeType.ALL)
 	private List<Coupon> coupons;
 
+	
+	public void addCoupon (Coupon coupon) {
+		if (this.coupons == null) {
+			this.coupons = new ArrayList<>();
+		}
+		coupon.setCompany(this);
+		this.coupons.add(coupon);
+		
+	}
+	
+
+	
 }

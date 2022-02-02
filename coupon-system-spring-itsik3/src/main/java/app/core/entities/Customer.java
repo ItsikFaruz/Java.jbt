@@ -36,4 +36,7 @@ public class Customer {
 	@JoinTable (name= "customer_coupon" , joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns =  @JoinColumn(name = "coupon_id"))
 	private List<Coupon> coupons;
 
+	
+
+	
 }

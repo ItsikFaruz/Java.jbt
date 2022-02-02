@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,6 +42,12 @@ public class Coupon {
 	private int amount;
 	private double price;
 	private String image;
+	
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "company_id")
+	private Company company;
+	
+
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinTable (name= "customer_coupon" , joinColumns = @JoinColumn(name = "coupon_id"), inverseJoinColumns =  @JoinColumn(name = "customer_id"))
 	private List<Customer> customers;

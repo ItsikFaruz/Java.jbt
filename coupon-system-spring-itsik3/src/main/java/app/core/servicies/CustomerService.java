@@ -5,32 +5,27 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.core.entities.Customer;
 import app.core.exception.CouponSystemException;
-import app.core.repos.CompanyRepo;
-import app.core.repos.CouponRepo;
-import app.core.repos.CustomerRepo;
 
 @Service
 @Transactional
-public class CustomerService {
+public class CustomerService extends ClientService {
 	
-	@Autowired
-	private CompanyRepo companyRepo;
-	@Autowired
-	private CouponRepo couponRepo;
-	@Autowired
-	private CustomerRepo customerRepo;
+
 	
+	@Override
+	public boolean login(String email, String password) {
+		if (customerRepo.existsByEmailAndPassword(email, password)) 
+			return true;
+		else 
+			return false;
 	
-	//test
-	
-	
-	
-	
+	}
+
+		
 	public int addCustomer (Customer customer) {
 		customer = customerRepo.save(customer);
 		return customer.getId();
@@ -56,8 +51,7 @@ public class CustomerService {
 			throw new CouponSystemException("getOneCustomer failed - this customer not exist");
 		}
 	}
-	
-	
+
 	
 	
 	
