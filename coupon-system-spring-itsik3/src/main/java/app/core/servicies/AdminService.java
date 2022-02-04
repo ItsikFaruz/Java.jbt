@@ -45,7 +45,6 @@ public class AdminService extends ClientService {
 			companyFromDb.setPassword(company.getPassword());
 		} else
 			throw new CouponSystemException("updateCompany faild - company not exist");
-
 	}
 
 	public void deleteCompany(int companyId) {
@@ -69,9 +68,17 @@ public class AdminService extends ClientService {
 	if	(!customerRepo.existsByEmail(customer.getEmail()))	
 		customerRepo.save(customer);
 		else
-			throw new CouponSystemException("addCustomer faild - this email already exist ");
-				
-		
+			throw new CouponSystemException("addCustomer faild - this email already exist ");	
 	}
+	
+	public void updateCustomer(Company customer) throws CouponSystemException {
+		Optional<Customer> opt = customerRepo.findById(customer.getId());
+		if (opt.isPresent()) {
+			Customer customerFromDb = opt.get();
+			customerRepo.save(customerFromDb);
+		} else
+			throw new CouponSystemException("updateCustomer faild - customer not exist");
+	}
+
 
 }

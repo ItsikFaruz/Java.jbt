@@ -28,8 +28,8 @@ public class CouponSystemSpringItsikApplication {
    		
    		AdminService adminService = ctx.getBean(AdminService.class);
    		
-   		Customer customer = new Customer(0, "itsik", "faruz", "@@@", "1234", null);
-   		adminService.addCustomer(customer);
+//   		Customer customer = new Customer(0, "itsik", "faruz", "@@@", "1234", null);
+//   		adminService.addCustomer(customer);
    		
    		
    		
