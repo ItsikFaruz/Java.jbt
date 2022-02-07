@@ -35,7 +35,7 @@ public class Coupon {
 	private Category category;
 	private String title;
 	private String description;
-	@JoinColumn(name="start_date")
+	@JoinColumn(name="tart_date")
 	private LocalDate startDate;
 	@JoinColumn(name="end_date")
 	private LocalDate endDate;
@@ -52,4 +52,12 @@ public class Coupon {
 	@JoinTable (name= "customer_coupon" , joinColumns = @JoinColumn(name = "coupon_id"), inverseJoinColumns =  @JoinColumn(name = "customer_id"))
 	private List<Customer> customers;
 
+//	public void addCustomer (Customer customer) {
+//		if (this.customers == null) {
+//			this.customers = new ArrayList<>();
+//		}
+//		this.customers.add(customer);
+//	}
+//	
+	
 }

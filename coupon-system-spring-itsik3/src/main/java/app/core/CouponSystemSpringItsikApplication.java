@@ -8,11 +8,9 @@ import org.springframework.context.ApplicationContext;
 
 import app.core.entities.Coupon;
 import app.core.entities.Coupon.Category;
-import app.core.entities.Customer;
 import app.core.exception.CouponSystemException;
-import app.core.repos.CompanyRepo;
-import app.core.servicies.AdminService;
 import app.core.servicies.CompanyService;
+import app.core.servicies.CustomerService;
 
 @SpringBootApplication
 public class CouponSystemSpringItsikApplication {
@@ -21,15 +19,17 @@ public class CouponSystemSpringItsikApplication {
        ApplicationContext ctx =  SpringApplication.run(CouponSystemSpringItsikApplication.class, args);
 		
        CompanyService companyService = ctx.getBean(CompanyService.class);
-   		CompanyRepo companyRepo = ctx.getBean(CompanyRepo.class);
+       CustomerService customerService = ctx.getBean(CustomerService.class);
+       
+//   		CompanyRepo companyRepo = ctx.getBean(CompanyRepo.class);
 //   		CustomerRepo customerRepo = ctx.getBean(CustomerRepo.class);
 //   		CouponRepo couponRepo = ctx.getBean(CouponRepo.class);
    	
    		
-   		AdminService adminService = ctx.getBean(AdminService.class);
+//   		AdminService adminService = ctx.getBean(AdminService.class);
    		
-//   		Customer customer = new Customer(0, "itsik", "faruz", "@@@", "1234", null);
-//   		adminService.addCustomer(customer);
+//   		Customer customer = new Customer(0, "bbb", "bbbb", "bbbb", "bbbb", null);
+//   		System.out.println(adminService.addCustomer(customer)); 
    		
    		
    		
@@ -43,17 +43,36 @@ public class CouponSystemSpringItsikApplication {
 //		
 //		}
    		
-//		Coupon c1 = new Coupon(0, Category.RESTURANT, "vvv", "vvv",LocalDate.of(2020, 05, 05) ,LocalDate.of(2020, 06, 06) ,10, 10D, "333", companyService.getCompany(2) , null);
-//		
+//		Coupon c1 = new Coupon(25, Category.RESTURANT, "yyyy", "yyyy",LocalDate.of(2020, 05, 05) ,LocalDate.of(2022, 06, 06) ,5, 10D, "yyyy", companyService.getCompany(2) , null);
+		
+		
+//		companyService.login("sss", "sss");
 //		companyService.addCoupon(c1);
+		
+//		companyService.deleteCoupon(25);
    		
 //   	adminService.deleteCompany(5);
-   		
+//    	adminService.deleteCustomer(6);
+//   	
 //   		ArrayList<Company> allCompany = adminService.getAllCompany();
 //   		for (Company company : allCompany) {
 //			System.out.println(company);
 //		}
    		
 //   		System.out.println(adminService.getOneCompany(1));
+   		
+//		ArrayList<Customer> allCustmer = adminService.getAllCustomer();
+//		for (Customer customer : allCustmer) {
+//		System.out.println(customer);
+//	}
+   		
+//   		System.out.println( adminService.getOneCustomer(7));
+   		
+//       companyService.login("sss", "sss");
+//       System.out.println(companyService.getCompanyDetials());
+       
+       System.out.println(customerService.login("aaaa", "aaaa")); 
+       customerService.purchaseCouponFromDb(25);
+//       
 	}
 }

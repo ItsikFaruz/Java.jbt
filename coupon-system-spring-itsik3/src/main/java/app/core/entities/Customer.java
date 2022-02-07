@@ -1,5 +1,6 @@
 package app.core.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -36,7 +37,11 @@ public class Customer {
 	@JoinTable (name= "customer_coupon" , joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns =  @JoinColumn(name = "coupon_id"))
 	private List<Coupon> coupons;
 
-	
-
+	public void addCoupon (Coupon coupon) {
+		if (this.coupons == null) {
+			this.coupons = new ArrayList<>();
+		}
+		this.coupons.add(coupon);
+	}
 	
 }

@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.springframework.context.annotation.Scope;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Entity
 @ToString(exclude = "coupons")
+@Scope("prototype")
 public class Company {
 
 	@Id

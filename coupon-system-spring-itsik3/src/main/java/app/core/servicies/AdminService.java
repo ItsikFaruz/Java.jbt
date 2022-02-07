@@ -47,8 +47,13 @@ public class AdminService extends ClientService {
 			throw new CouponSystemException("updateCompany faild - company not exist");
 	}
 
-	public void deleteCompany(int companyId) {
-		companyRepo.deleteById(companyId);
+	public void deleteCompany(int companyId) throws CouponSystemException {
+		Optional<Company> opt = companyRepo.findById(companyId);
+		if (opt.isPresent()) {
+			companyRepo.deleteById(companyId);
+			System.out.println("Company " + companyId + " deleted" );
+		} else
+			throw new CouponSystemException("deleteCompanyr faild - customer " + companyId + " not exist");
 	}
 
 	public ArrayList<Company> getAllCompany() {
@@ -61,12 +66,14 @@ public class AdminService extends ClientService {
 		if (opt.isPresent()) {
 			return opt.get();
 		} else
-			throw new CouponSystemException("getOneCompany faild - company not exist");
+			throw new CouponSystemException("getOneCustomer faild - customer " + companyId + " not exist");
 	}
 	
-	public void addCustomer (Customer customer) throws CouponSystemException {
-	if	(!customerRepo.existsByEmail(customer.getEmail()))	
+	public int addCustomer (Customer customer) throws CouponSystemException {
+	if	(!customerRepo.existsByEmail(customer.getEmail())) {	
 		customerRepo.save(customer);
+		return customer.getId();
+	}
 		else
 			throw new CouponSystemException("addCustomer faild - this email already exist ");	
 	}
@@ -79,6 +86,26 @@ public class AdminService extends ClientService {
 		} else
 			throw new CouponSystemException("updateCustomer faild - customer not exist");
 	}
-
-
+	
+	public void deleteCustomer (int customerId) throws CouponSystemException {
+		Optional<Customer> opt = customerRepo.findById(customerId);
+		if (opt.isPresent()) {
+			customerRepo.deleteById(customerId);
+			System.out.println("Customer " + customerId + " deleted" );
+		} else
+			throw new CouponSystemException("deleteCustomer faild - customer " + customerId + " not exist");
+	}
+	
+	public ArrayList<Customer> getAllCustomer() {
+		ArrayList<Customer> allCustomer = (ArrayList<Customer>) customerRepo.findAll();
+		return allCustomer;
+	}
+	public Customer getOneCustomer ( int customerId) throws CouponSystemException {
+		Optional<Customer> opt = customerRepo.findById(customerId);
+		if (opt.isPresent()) {
+			return opt.get();
+		} else
+			throw new CouponSystemException("getOneCustomer faild - customer " + customerId + " not exist");
+	}
+	
 }
