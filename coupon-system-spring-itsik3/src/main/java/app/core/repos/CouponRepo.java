@@ -1,5 +1,6 @@
 package app.core.repos;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,6 +22,15 @@ public interface CouponRepo extends JpaRepository<Coupon, Integer> {
 	
 	List<Coupon> findByCompanyIdAndPriceLessThan (int companyId , Double maxPrice) ;
 	
+	List<Coupon> findByCustomersId (int customerId);
+
+	List<Coupon> findByCustomersIdAndCategory (int customerId , Category category);
+
+	List<Coupon> findByCustomersIdAndPriceLessThan (int customerId , Double maxPrice);
 	
+	public void deleteByEndDateBefore (LocalDate time);
 }
+
+
+
 

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import app.core.entities.Coupon;
+import app.core.entities.Coupon.Category;
 import app.core.entities.Customer;
 import app.core.exception.CouponSystemException;
 
@@ -110,8 +111,21 @@ public class CustomerService extends ClientService {
 		couponFromDb.setAmount(couponFromDb.getAmount() - 1);
 	}
 
+	public List<Coupon> getAllCoupon (){
+	return couponRepo.findByCustomersId(customerId);
+	}
 	
 	
+	public List<Coupon> getAllCouponByCategory (Category category){
+		return couponRepo.findByCustomersIdAndCategory(customerId , category);
+	}
 	
+	public List<Coupon> getAllCouponUpToMaxPrice (double maxPrice){
+		return couponRepo.findByCustomersIdAndPriceLessThan(customerId , maxPrice);
+	}
+	
+	public Customer getCustomerDetails () {
+		return customerRepo.findById(customerId).get();
+	}
 	
 }

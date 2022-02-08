@@ -1,5 +1,6 @@
 package app.core.servicies;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -106,6 +107,10 @@ public class AdminService extends ClientService {
 			return opt.get();
 		} else
 			throw new CouponSystemException("getOneCustomer faild - customer " + customerId + " not exist");
+	}
+	
+	public void deleteExpiredCoupon () {
+		couponRepo.deleteByEndDateBefore(LocalDate.now());
 	}
 	
 }
