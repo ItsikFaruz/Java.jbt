@@ -486,7 +486,7 @@ public class CouponDaoDb implements CouponDao {
 			ResultSet rs = pstmt.executeQuery();
 			rs.next();
 			LocalDate endDate = rs.getDate("end_date").toLocalDate();
-			if (endDate.isAfter(LocalDate.now()))
+			if (endDate.isBefore(LocalDate.now()))
 				return true;
 			else
 				return false;

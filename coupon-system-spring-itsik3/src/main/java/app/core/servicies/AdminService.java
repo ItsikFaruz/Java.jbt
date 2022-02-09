@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import app.core.entities.Company;
@@ -16,8 +17,14 @@ import app.core.exception.CouponSystemException;
 @Transactional
 public class AdminService extends ClientService {
 
-	private final String email = "admin@admin.com";
-	private final String password = "admin";
+	@Value("${admin.email}")
+	private String email;
+	@Value("${admin.password}")
+	private String password;
+	
+	
+//	private final String email = "admin@admin.com";
+//	private final String password = "admin";
 
 	@Override
 	public boolean login(String email, String password) {
@@ -79,8 +86,8 @@ public class AdminService extends ClientService {
 			throw new CouponSystemException("addCustomer faild - this email already exist ");	
 	}
 	
-	public void updateCustomer(Company customer) throws CouponSystemException {
-		Optional<Customer> opt = customerRepo.findById(customer.getId());
+	public void updateCustomer(Customer customer1) throws CouponSystemException {
+		Optional<Customer> opt = customerRepo.findById(customer1.getId());
 		if (opt.isPresent()) {
 			Customer customerFromDb = opt.get();
 			customerRepo.save(customerFromDb);

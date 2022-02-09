@@ -55,7 +55,7 @@ public class Test {
 	//*******************************ADMIN TEST************************************
 	private void doAdminTest() throws CouponSystemException {
 		System.out.println("\n\n\n====================== ADMIN TEST =========================");
-		AdminFacade af = (AdminFacade) LoginManager.getInstance().logIn("admin@admin.com", "admin",
+		AdminFacade af = (AdminFacade) LoginManager.getInstance().logIn("admidn@admin.com", "admin",
 				ClientType.ADMINISTRATOR);
 		if (af != null) {
 			System.out.println("admin logged in successfully");
@@ -143,7 +143,7 @@ public class Test {
 		System.out.println("-----------------------------------------------------------");
 		// ==================add coupon==============================
 		Coupon coupon1 = new Coupon(0, 2, Coupon.Category.FOOD, "aaaa", "aaaa", LocalDate.of(2010, 12, 11),
-				LocalDate.of(2025, 10, 15), 10, 10, "aaaa");
+				LocalDate.of(2022, 10, 15), 10, 10, "aaaa");
 		Coupon coupon2 = new Coupon(0, 2, Coupon.Category.TRAVEL, "bbbb", "bbbb", LocalDate.of(2010, 12, 11),
 				LocalDate.of(2022, 10, 15), 10, 10, "cccc");
 		Coupon coupon3 = new Coupon(0, 3, Coupon.Category.VACATION, "cccc", "cccc", LocalDate.of(2010, 12, 11),

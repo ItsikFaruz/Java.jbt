@@ -73,7 +73,7 @@ public class CustomerFacade extends ClientFacade {
 			throw new CouponSystemException("ERROR: No coupons left available ");
 		}
 
-		if (!couponDao.checkIfDateExpierd(coupon)) {
+		if (couponDao.checkIfDateExpierd(coupon)) {
 			throw new CouponSystemException("ERROR: The coupon has expired ");
 		}
 

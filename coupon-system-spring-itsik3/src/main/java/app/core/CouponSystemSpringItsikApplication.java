@@ -9,10 +9,13 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import app.core.entities.Coupon;
 import app.core.entities.Coupon.Category;
+import app.core.entities.Customer;
 import app.core.exception.CouponSystemException;
 import app.core.loginManager.Clients.ClientType;
 import app.core.loginManager.LoginManager;
+import app.core.servicies.AdminService;
 import app.core.servicies.CompanyService;
+import app.core.test.TestAll;
 
 @EnableScheduling
 @SpringBootApplication
@@ -20,7 +23,13 @@ public class CouponSystemSpringItsikApplication {
 
 	public static void main(String[] args) throws CouponSystemException {
        ApplicationContext ctx =  SpringApplication.run(CouponSystemSpringItsikApplication.class, args);
-		
+       AdminService adminService = ctx.getBean(AdminService.class);
+//       TestAll testAll = ctx.getBean(TestAll.class);
+//       testAll.test();
+       
+       
+       
+       
 //       CompanyService companyService = ctx.getBean(CompanyService.class);
 //       CustomerService customerService = ctx.getBean(CustomerService.class);
        
@@ -33,7 +42,7 @@ public class CouponSystemSpringItsikApplication {
    		
 //   		Customer customer = new Customer(0, "bbb", "bbbb", "bbbb", "bbbb", null);
 //   		System.out.println(adminService.addCustomer(customer)); 
-   		
+//   		Customer customer2 = new Customer(0, "aaa", "aaa", "aaa", "aaa", null);
    		
    		
 //   		Company company = new Company(7, "666", "666", "666", null  );
@@ -91,7 +100,7 @@ public class CouponSystemSpringItsikApplication {
 //       for (Coupon coupon : list) {
 //    	   System.out.println(coupon);
 //       }
-//       LoginManager loginManager = new LoginManager();
+
        
 //       LoginManager loginManager = ctx.getBean(LoginManager.class) ;
 //       CustomerService customer = (CustomerService) loginManager .login("aaaa", "aaaa",ClientType.CUSTOMER);
@@ -99,15 +108,15 @@ public class CouponSystemSpringItsikApplication {
 //       System.out.println(customer.login("aaaa", "aaaa"));	
 //       System.out.println(customer.getCustomerDetails()); 
        
-       LoginManager loginManager = ctx.getBean(LoginManager.class) ;
-       CompanyService company = (CompanyService) loginManager .login("ddd", "ddd",ClientType.COMPANY);
+//       LoginManager loginManager = ctx.getBean(LoginManager.class) ;
+//       CompanyService company = (CompanyService) loginManager .login("ddd", "ddd",ClientType.COMPANY);
        
 //       System.out.println(customer.login("aaaa", "aaaa"));	
-//       Coupon c1 = new Coupon(0, Category.RESTURANT, "rdsse", "rsdse",LocalDate.of(2020, 05, 05) ,LocalDate.of(2021, 06, 06) ,5, 10D, "oioi", company.getCompany(1) , null);
+//       Coupon c1 = new Coupon(0, Category.RESTURANT, "bvbv", "bvbv",LocalDate.of(2020, 05, 05) ,LocalDate.of(2021, 06, 06) ,5, 10D, "bvbv", company.getCompany(2) , null);
 //       company.addCoupon(c1);
        //       System.out.println(company.getCompanyDetials()); 
 //       
-     
+
        
       
 	}

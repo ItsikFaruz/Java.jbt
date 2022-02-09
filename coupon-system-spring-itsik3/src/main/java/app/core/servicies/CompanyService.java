@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import app.core.entities.Company;
@@ -14,7 +15,7 @@ import app.core.exception.CouponSystemException;
 
 @Service
 @Transactional
-
+@Scope("prototype")
 public class CompanyService extends ClientService {
 
 	private int companyId;
@@ -27,7 +28,6 @@ public class CompanyService extends ClientService {
 		this.companyId = id;
 	}
 
-	
 	@Override
 	public boolean login(String email, String password) {
 		if (companyRepo.existsByEmailAndPassword(email, password)) {
@@ -39,23 +39,27 @@ public class CompanyService extends ClientService {
 		}
 	}
 
-	
 	public int addCoupon(Coupon coupon) throws CouponSystemException {
 		if (couponRepo.existsByTitleAndCompanyId(coupon.getTitle(), companyId)) {
 			throw new CouponSystemException("addCoupon faild - coupon: " + coupon.getTitle() + " is alredy exists  ");
 		}
+		Company company = null;
 		Optional<Company> opt = companyRepo.findById(coupon.getCompany().getId());
 		if (opt.isPresent()) {
-			Company company = opt.get();
-			company.addCoupon(coupon);
-			return coupon.getId();
+			company = opt.get();
 		} else {
 			throw new CouponSystemException(
 					"addCoupon faild - company: " + coupon.getCompany().getId() + " id is not exist");
 		}
+		if (company.getId() == companyId) {
+			company.addCoupon(coupon);
+			return coupon.getId();
+		} else {
+			throw new CouponSystemException(
+					"addCoupon faild - company id in coupon: " + coupon.getCompany().getId() + " and company id not mutch");
+		}
 	}
 
-	
 	public void updatCoupon(Coupon coupon) throws CouponSystemException {
 		if (couponRepo.existsByIdAndCompanyId(coupon.getId(), companyId)) {
 			couponRepo.save(coupon);
@@ -64,7 +68,6 @@ public class CompanyService extends ClientService {
 			throw new CouponSystemException(" updatCoupon faild - can not change coupon id company id ");
 	}
 
-	
 	public void deleteCoupon(int couponId) throws CouponSystemException {
 		if (couponRepo.existsByIdAndCompanyId(couponId, companyId)) {
 			couponRepo.deleteById(couponId);
@@ -73,7 +76,6 @@ public class CompanyService extends ClientService {
 			throw new CouponSystemException(" deleteCoupon faild - coupon " + couponId + "not exists ");
 	}
 
-	
 	public Company getCompany(int companyId) throws CouponSystemException {
 		Optional<Company> opt = companyRepo.findById(companyId);
 		if (opt.isPresent()) {
@@ -83,22 +85,18 @@ public class CompanyService extends ClientService {
 		}
 	}
 
-	
 	public List<Coupon> getAllCompanyCoupon() {
 		return couponRepo.findByCompanyId(this.companyId);
 	}
 
-	
 	public List<Coupon> getAllCompanyCouponByCategory(Category category) {
 		return couponRepo.findByCompanyIdAndCategory(this.companyId, category);
 	}
 
-	
 	public List<Coupon> getAllCompanyCouponUpToMaxPrice(double maxPrice) {
 		return couponRepo.findByCompanyIdAndPriceLessThan(this.companyId, maxPrice);
 	}
 
-	
 	public Company getCompanyDetials() throws CouponSystemException {
 		Optional<Company> opt = companyRepo.findById(this.companyId);
 		if (opt.isPresent())
@@ -107,8 +105,4 @@ public class CompanyService extends ClientService {
 			throw new CouponSystemException("getCompanyDetials faild - company- " + companyId + " not exist.");
 	}
 
-	
-	
-	
-	
 }

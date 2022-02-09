@@ -22,8 +22,7 @@ public class CouponExpirationDailyJob {
 	}
 	
 //		@Scheduled (cron = "1 0 0 * * * " )
-//		public void job () {
-//			
+//		public void job () {	
 //			couponRepo.deleteByEndDateBefore(LocalDate.now());	
 //			
 //		}
