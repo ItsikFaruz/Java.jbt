@@ -55,7 +55,7 @@ public class Test {
 	//*******************************ADMIN TEST************************************
 	private void doAdminTest() throws CouponSystemException {
 		System.out.println("\n\n\n====================== ADMIN TEST =========================");
-		AdminFacade af = (AdminFacade) LoginManager.getInstance().logIn("admidn@admin.com", "admin",
+		AdminFacade af = (AdminFacade) LoginManager.getInstance().logIn("admin@admin.com", "admin",
 				ClientType.ADMINISTRATOR);
 		if (af != null) {
 			System.out.println("admin logged in successfully");
@@ -223,8 +223,8 @@ public class Test {
 		for (Coupon coupon : allCustomerCoupon) {
 			System.out.println(coupon);
 		}
-		// ============all customer coupon purchased by category=======
 		System.out.println("-----------------------------------------------------------");
+		// ============all customer coupon purchased by category=======
 		Category category = Category.TRAVEL;
 		System.out.println("all customer: " + customer.getId() + " id coupon by "+ category + " category: ");
 		ArrayList<Coupon> allCustomerCouponByCategory = new ArrayList<>();
@@ -232,8 +232,8 @@ public class Test {
 		for (Coupon coupon : allCustomerCouponByCategory) {
 			System.out.println(coupon);
 		}
-		// ========all customer coupon purchased below max price=======
 		System.out.println("-----------------------------------------------------------");
+		// ========all customer coupon purchased below max price=======
 		double maxPrice = 15;
 		System.out.println("all customer: " + customer.getId() + " id below "+ maxPrice + " Dollar: ");
 		ArrayList<Coupon> allCustomerCouponBelowMaxPrice = new ArrayList<>();
