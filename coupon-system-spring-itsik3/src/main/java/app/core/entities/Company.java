@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 
 import org.springframework.context.annotation.Scope;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +34,7 @@ public class Company {
 	private String email;
 	private String password;
 	
+	@JsonIgnore
 	@OneToMany (mappedBy = "company" ,  cascade = CascadeType.ALL)
 	private List<Coupon> coupons;
 

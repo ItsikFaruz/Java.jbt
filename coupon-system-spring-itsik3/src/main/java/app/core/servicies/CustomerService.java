@@ -55,7 +55,7 @@ public class CustomerService extends ClientService {
 		if (opt.isPresent()) {
 			Coupon couponFromDb = couponRepo.getById(coupon.getId());
 			if (customer.getCoupons().contains(couponFromDb)) {
-				throw new CouponSystemException("purchaseCoupon failed - ccoupon " + coupon.getId() + " alredy exsits");
+				throw new CouponSystemException("purchaseCoupon failed - ccoupon " + coupon.getId() + " alredy purchased");
 			}
 			if (couponFromDb.getAmount() < 1) {
 				throw new CouponSystemException(
@@ -68,9 +68,13 @@ public class CustomerService extends ClientService {
 			customer.addCoupon(couponFromDb);
 			couponFromDb.setAmount(couponFromDb.getAmount() - 1);
 		}
+		else {
+			throw new CouponSystemException(
+					"purchaseCoupon failed -  coupon " + coupon.getId() + "not exists");
+
+		}
 	}
 
-	
 	
 	public Customer getOneCustomer(int customerId) throws CouponSystemException {
 		Optional<Customer> opt = customerRepo.findById(customerId);

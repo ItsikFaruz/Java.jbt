@@ -21,8 +21,7 @@ public class AdminService extends ClientService {
 	private String email;
 	@Value("${admin.password}")
 	private String password;
-	
-	
+
 //	private final String email = "admin@admin.com";
 //	private final String password = "admin";
 
@@ -42,7 +41,8 @@ public class AdminService extends ClientService {
 			throw new CouponSystemException("addCompany faild - email or name already exist");
 		else
 			companyRepo.save(company);
-		return company.getId();
+		Company companyFromDb = companyRepo.findCompanyByEmailAndPassword(company.getEmail(), company.getPassword());
+		return companyFromDb.getId();
 	}
 
 	public void updateCompany(Company company) throws CouponSystemException {
@@ -59,7 +59,7 @@ public class AdminService extends ClientService {
 		Optional<Company> opt = companyRepo.findById(companyId);
 		if (opt.isPresent()) {
 			companyRepo.deleteById(companyId);
-			System.out.println("Company " + companyId + " deleted" );
+			System.out.println("Company " + companyId + " deleted");
 		} else
 			throw new CouponSystemException("deleteCompanyr faild - customer " + companyId + " not exist");
 	}
@@ -76,48 +76,49 @@ public class AdminService extends ClientService {
 		} else
 			throw new CouponSystemException("getOneCustomer faild - customer " + companyId + " not exist");
 	}
-	
-	public int addCustomer (Customer customer) throws CouponSystemException {
-	if	(!customerRepo.existsByEmail(customer.getEmail())) {	
-		customerRepo.save(customer);
-		return customer.getId();
+
+	public int addCustomer(Customer customer) throws CouponSystemException {
+		if (!customerRepo.existsByEmail(customer.getEmail())) {
+			customerRepo.save(customer);
+			Customer customerFromDb = customerRepo.findCustomerByEmailAndPassword(customer.getEmail(), customer.getPassword());
+			return customerFromDb.getId();
+		} else
+			throw new CouponSystemException("addCustomer faild - this email already exist ");
 	}
-		else
-			throw new CouponSystemException("addCustomer faild - this email already exist ");	
-	}
-	
-	public void updateCustomer(Customer customer1) throws CouponSystemException {
-		Optional<Customer> opt = customerRepo.findById(customer1.getId());
+
+	public int updateCustomer(Customer customer) throws CouponSystemException {
+		Optional<Customer> opt = customerRepo.findById(customer.getId());
 		if (opt.isPresent()) {
-			Customer customerFromDb = opt.get();
-			customerRepo.save(customerFromDb);
+			customerRepo.save(customer);
+			return customer.getId();
 		} else
 			throw new CouponSystemException("updateCustomer faild - customer not exist");
 	}
-	
-	public void deleteCustomer (int customerId) throws CouponSystemException {
+
+	public void deleteCustomer(int customerId) throws CouponSystemException {
 		Optional<Customer> opt = customerRepo.findById(customerId);
 		if (opt.isPresent()) {
 			customerRepo.deleteById(customerId);
-			System.out.println("Customer " + customerId + " deleted" );
+			System.out.println("Customer " + customerId + " deleted");
 		} else
 			throw new CouponSystemException("deleteCustomer faild - customer " + customerId + " not exist");
 	}
-	
+
 	public ArrayList<Customer> getAllCustomer() {
 		ArrayList<Customer> allCustomer = (ArrayList<Customer>) customerRepo.findAll();
 		return allCustomer;
 	}
-	public Customer getOneCustomer ( int customerId) throws CouponSystemException {
+
+	public Customer getOneCustomer(int customerId) throws CouponSystemException {
 		Optional<Customer> opt = customerRepo.findById(customerId);
 		if (opt.isPresent()) {
 			return opt.get();
 		} else
 			throw new CouponSystemException("getOneCustomer faild - customer " + customerId + " not exist");
 	}
-	
-	public void deleteExpiredCoupon () {
+
+	public void deleteExpiredCoupon() {
 		couponRepo.deleteByEndDateBefore(LocalDate.now());
 	}
-	
+
 }
