@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,11 +45,12 @@ public class Coupon {
 	private double price;
 	private String image;
 	
+
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "company_id")
 	private Company company;
 	
-
+	@JsonIgnore
 	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinTable (name= "customer_coupon" , joinColumns = @JoinColumn(name = "coupon_id"), inverseJoinColumns =  @JoinColumn(name = "customer_id"))
 	private List<Customer> customers;

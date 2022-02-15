@@ -18,6 +18,7 @@ public class CouponExpirationDailyJob {
 	
 	@Scheduled (cron = "1 0 0 * * * " )	
 	public void deleteExpiredCoupon () {
+		System.out.println("daily job checks expirad coupon");
 		adminService.deleteExpiredCoupon();
 	}
 	

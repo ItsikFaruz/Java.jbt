@@ -122,12 +122,15 @@ public class TestAll {
 		Coupon coupon1 = new Coupon(0, Category.FOOD, "xxx", "xxx",LocalDate.of(2020, 05, 05) ,LocalDate.of(2022, 06, 06) ,5, 10D, "xxx", company.getCompany(2) , null);
 		Coupon coupon2 = new Coupon(0, Category.TRAVEL, "yyy", "yyy",LocalDate.of(2020, 05, 05) ,LocalDate.of(2022, 06, 06) ,5, 10D, "yyy", company.getCompany(2) , null);
 		Coupon coupon3 = new Coupon(0, Category.VACATION, "zzz", "zzz",LocalDate.of(2020, 05, 05) ,LocalDate.of(2022, 06, 06) ,5, 30D, "zzz", company.getCompany(2) , null);
+		Coupon coupon4 = new Coupon(0, Category.VACATION, "qqq", "qqq",LocalDate.of(2020, 05, 05) ,LocalDate.of(2020, 06, 06) ,5, 30D, "qqq", company.getCompany(2) , null);
 		company.addCoupon(coupon1);
 		System.out.println("added " + coupon1);
 		company.addCoupon(coupon2);
 		System.out.println("added " + coupon2);
 		company.addCoupon(coupon3);
 		System.out.println("added " + coupon3);
+		company.addCoupon(coupon4);
+		System.out.println("added " + coupon4);
 		System.out.println("\n---------------------update coupon-------------------------");	
 		// ==================update coupon============================
 		coupon1.setTitle("@@@@");

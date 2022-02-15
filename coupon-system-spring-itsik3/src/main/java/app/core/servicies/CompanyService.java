@@ -18,7 +18,7 @@ import app.core.exception.CouponSystemException;
 @Scope("prototype")
 public class CompanyService extends ClientService {
 
-	private int companyId;
+	private int companyId = 2;
 
 	public int getId() {
 		return companyId;
@@ -40,9 +40,7 @@ public class CompanyService extends ClientService {
 	}
 
 	public int addCoupon(Coupon coupon) throws CouponSystemException {
-		if (couponRepo.existsByTitleAndCompanyId(coupon.getTitle(), companyId)) {
-			throw new CouponSystemException("addCoupon faild - coupon: " + coupon.getTitle() + " is alredy exists  ");
-		}
+
 		Company company = null;
 		Optional<Company> opt = companyRepo.findById(coupon.getCompany().getId());
 		if (opt.isPresent()) {
@@ -51,21 +49,29 @@ public class CompanyService extends ClientService {
 			throw new CouponSystemException(
 					"addCoupon faild - company: " + coupon.getCompany().getId() + " id is not exist");
 		}
+		
+		if (couponRepo.existsByTitleAndCompanyId(coupon.getTitle(), companyId)) {
+			throw new CouponSystemException("addCoupon faild - coupon: " + coupon.getTitle() + " is alredy exists  ");
+		}
+		
+		
 		if (company.getId() == companyId) {
 			company.addCoupon(coupon);
-			return coupon.getId();
+			Coupon couponFromDb = couponRepo.findByTitleAndCompanyId(coupon.getTitle(), companyId);
+			return couponFromDb.getId(); 
+			
 		} else {
 			throw new CouponSystemException(
-					"addCoupon faild - company id in coupon: " + coupon.getCompany().getId() + " and company id not mutch");
+					"addCoupon faild - company id in coupon: " + coupon.getCompany().getId() + " and company id  login not mutch");
 		}
 	}
 
 	public void updatCoupon(Coupon coupon) throws CouponSystemException {
-		if (couponRepo.existsByIdAndCompanyId(coupon.getId(), companyId)) {
+		if (couponRepo.existsByIdAndCompanyId(coupon.getId(), companyId) && coupon.getCompany().getId() ==companyId) {
 			couponRepo.save(coupon);
 
 		} else
-			throw new CouponSystemException(" updatCoupon faild - can not change coupon id company id ");
+			throw new CouponSystemException(" updatCoupon faild - can not change coupon and id company id ");
 	}
 
 	public void deleteCoupon(int couponId) throws CouponSystemException {

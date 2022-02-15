@@ -45,7 +45,6 @@ public class Company {
 		}
 		coupon.setCompany(this);
 		this.coupons.add(coupon);
-		
 	}
 	
 
