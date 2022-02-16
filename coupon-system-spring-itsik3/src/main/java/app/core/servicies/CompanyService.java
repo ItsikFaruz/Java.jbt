@@ -18,7 +18,7 @@ import app.core.exception.CouponSystemException;
 @Scope("prototype")
 public class CompanyService extends ClientService {
 
-	private int companyId = 2;
+	private int companyId = 9;
 
 	public int getId() {
 		return companyId;
@@ -79,7 +79,7 @@ public class CompanyService extends ClientService {
 			couponRepo.deleteById(couponId);
 
 		} else
-			throw new CouponSystemException(" deleteCoupon faild - coupon " + couponId + "not exists ");
+			throw new CouponSystemException(" deleteCoupon faild - coupon " + couponId + " not exists ");
 	}
 
 	public Company getCompany(int companyId) throws CouponSystemException {

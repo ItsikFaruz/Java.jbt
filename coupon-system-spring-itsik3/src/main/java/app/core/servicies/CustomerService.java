@@ -19,7 +19,7 @@ import app.core.exception.CouponSystemException;
 @Scope("prototype")
 public class CustomerService extends ClientService {
 
-	private int customerId;
+	private int customerId = 2;
 
 	public int getCustomerId() {
 		return customerId;
