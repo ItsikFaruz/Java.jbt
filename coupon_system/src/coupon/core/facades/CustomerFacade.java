@@ -42,7 +42,7 @@ public class CustomerFacade extends ClientFacade {
 
 	/**
 	 * log in: Checks if password and email are correct. return true or false if
-	 * true, also set id to company
+	 * true, also set id to customer
 	 * 
 	 * @param email
 	 * @param password
@@ -58,6 +58,17 @@ public class CustomerFacade extends ClientFacade {
 		return true;
 	}
 
+	
+	
+	/**
+	 * purchase coupon from data base, also checks: 
+	 * if coupon exists,
+	 * if coupon already purchased,
+	 * if coupon available, 
+	 * if the coupon is valid.
+	 * @param couponId
+	 * @throws CouponSystemException
+	 */
 	public void purchaseCoupon(Coupon coupon) throws CouponSystemException {
 
 		if (!couponDao.checkCouponExist(coupon)) {

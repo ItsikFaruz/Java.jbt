@@ -7,25 +7,22 @@ import org.springframework.stereotype.Component;
 import app.core.servicies.AdminService;
 
 @Component
-//@Transactional
 public class CouponExpirationDailyJob {
 
-//	@Autowired
-//	protected CouponRepo couponRepo;
 
 	@Autowired
 	AdminService adminService;
+
 	
-	@Scheduled (cron = "1 0 0 * * * " )	
-	public void deleteExpiredCoupon () {
+	
+	/**
+	 * The function checks every day at 12 at night which coupons have expired
+	 *  and deletes them
+	 */
+	@Scheduled(cron = "1 0 0 * * * ")
+	public void deleteExpiredCoupon() {
 		System.out.println("daily job checks expirad coupon");
 		adminService.deleteExpiredCoupon();
 	}
-	
-//		@Scheduled (cron = "1 0 0 * * * " )
-//		public void job () {	
-//			couponRepo.deleteByEndDateBefore(LocalDate.now());	
-//			
-//		}
-//		
-	}
+
+}

@@ -10,6 +10,11 @@ import app.core.exception.CouponSystemException;
 @SpringBootApplication
 public class CouponSystemSpringItsikApplication {
 
+	
+	/**
+	 * MAIN COUPON SYSTEM APPLICATION.
+	 * @throws CouponSystemException
+	 */
 	public static void main(String[] args) throws CouponSystemException {
     SpringApplication.run(CouponSystemSpringItsikApplication.class, args);
 

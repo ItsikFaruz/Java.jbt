@@ -29,6 +29,7 @@ public class TestAll {
 	LoginManager loginManager;
 
 //==========test==========	
+	
 	@PostConstruct
 	public void test() throws CouponSystemException {
 		System.out.println("post");
@@ -42,73 +43,73 @@ public class TestAll {
 	public void doAdminTest() throws CouponSystemException {
 		
 		System.out.println("\n\n\n====================== ADMIN TEST =======================");
-		AdminService af = (AdminService) loginManager.login("admin@admin.com", "admin",ClientType.ADMINISTRATOR);
-//		System.out.println(adminService.getAllCompany());
-		System.out.println("\n-------------------add company----------------------------");
+		AdminService as = (AdminService) loginManager.login("admin@admin.com", "admin",ClientType.ADMINISTRATOR);
+		System.out.println("Admin successfully logged in");
+		System.out.println("\n-------------------add companies---------------------------");
 		// ==================add company==============================
 		Company company1 = new Company(0, "aaa", "aaa", "aaa" , null);
 		Company company2 = new Company(0, "bbb", "bbb", "bbb" , null);
 		Company company3 = new Company(0, "ccc", "ccc", "ccc" , null);
-		af.addCompany(company1);
+		as.addCompany(company1);
 		System.out.println("added " + company1);
-		af.addCompany(company2);
+		as.addCompany(company2);
 		System.out.println("added " + company2);
-		af.addCompany(company3);
+		as.addCompany(company3);
 		System.out.println("added " + company3);
 		System.out.println("\n-----------------update company----------------------------");
 		// ==================update company===========================
 		company1.setEmail("@@@");
-		af.updateCompany(company1);
+		as.updateCompany(company1);
 		System.out.println("updated company: " + company1.getId() + " to: " + company1);
 		System.out.println("\n------------------delete company---------------------------");
 		// ==================delete company===========================
-		af.deleteCompany(company1.getId());
-		System.out.println("deleted company: " + company1.getId());
+		as.deleteCompany(company1.getId());
+		System.out.println("company deleted : " + company1.getId());
 		System.out.println("\n--------------getAll Companies-----------------------------");
 		// ==================get all company==========================
 		System.out.println("All Companies: ");
 		List<Company> allcompnies = new ArrayList<>();
-		allcompnies = af.getAllCompany();
+		allcompnies = as.getAllCompany();
 		for (Company company : allcompnies) {
 			System.out.println(company);
 		}
 		System.out.println("\n-------------------get one company-------------------------");
 		// ==================get one company==========================
 		System.out.print("got one company : ");
-		System.out.println(af.getOneCompany(company2.getId()));
+		System.out.println(as.getOneCompany(company2.getId()));
 		System.out.println("\n---------------------add customers-------------------------");
 		// ===================add customers===========================
 		Customer customer1 = new Customer(0, "aaaa", "aaaa", "aaaa", "aaaa", null);
    		Customer customer2 = new Customer(0, "bbbb", "bbbb", "bbbb", "bbbb", null);
    		Customer customer3 = new Customer(0, "cccc", "cccc", "cccc", "cccc", null);
-		af.addCustomer(customer1);
+		as.addCustomer(customer1);
 		System.out.println("added " + customer1);
-		af.addCustomer(customer2);
+		as.addCustomer(customer2);
 		System.out.println("added " + customer2);
-		af.addCustomer(customer3);
+		as.addCustomer(customer3);
 		System.out.println("added " + customer3);
 		System.out.println("\n-------------------update customer-------------------------");
 		// ====================update customer=========================
 		customer1.setEmail("@@");
 		customer1.setFirstName("dd");
-		af.updateCustomer(customer1);
+		as.updateCustomer(customer1);
 		System.out.println("updated Customer: " + customer1.getId() + " to " + customer1);
 		System.out.println("\n--------------------delete customer------------------------");
 		// ====================delete customer=========================
-		af.deleteCustomer(customer1.getId());
+		as.deleteCustomer(customer1.getId());
 		System.out.println("deleted Customer: id = " + customer1.getId());
 		System.out.println("\n------------------get all customer-------------------------");
 		// ====================get all customer========================
 		System.out.println("List of all customers below: ");
 		List<Customer> allCustomers = new ArrayList<>();
-		allCustomers = af.getAllCustomer();
+		allCustomers = as.getAllCustomer();
 		for (Customer customer : allCustomers) {
 			System.out.println(customer);
 		}
 		System.out.println("\n-----------------get one customer--------------------------");
 		// ====================get one customer========================
 		System.out.print("get one customer : ");
-		System.out.println(af.getOneCustomer(customer2.getId()));
+		System.out.println(as.getOneCustomer(customer2.getId()));
 		System.out.println("\n-----------------------------------------------------------");
 	}
 
@@ -117,6 +118,7 @@ public class TestAll {
 	public void doCompanyTest() throws CouponSystemException {
 		System.out.println("\n\n\n====================== COMPANY TEST =======================");
 		CompanyService company = (CompanyService) loginManager.login("bbb", "bbb",ClientType.COMPANY);
+		System.out.println("Company successfully logged in");
 		System.out.println("\n----------------------add coupon---------------------------");
 		// ==================add coupon==============================
 		Coupon coupon1 = new Coupon(0, Category.FOOD, "xxx", "xxx",LocalDate.of(2020, 05, 05) ,LocalDate.of(2022, 06, 06) ,5, 10D, "xxx", company.getCompany(2) , null);
@@ -138,11 +140,11 @@ public class TestAll {
 		coupon1.setDescription("@@@@");
 		company.updatCoupon(coupon1);
 		System.out.println("updated Coupon: " + coupon1.getId() + " to " + coupon1);
-		System.out.println("\n-----------------------------------------------------------");
-		// ==================delete company===========================
+		System.out.println("\n------------------delete coupon----------------------------");
+		// ==================delete coupon============================
 		company.deleteCoupon(coupon1.getId());
 		System.out.println("deleted Coupon: " + coupon1.getId());
-		System.out.println("------------------company coupons----------------------------");
+		System.out.println("\n----------------Company coupons----------------------------");
 		// ==================company coupons==========================
 		System.out.println("All company coupons: ");
 		List<Coupon> allCoupon = new ArrayList<>();
@@ -150,7 +152,7 @@ public class TestAll {
 		for (Coupon coupon : allCoupon) {
 			System.out.println(coupon);
 		}
-		System.out.println("\n------------company coupons by category--------------------");
+		System.out.println("\n------------Company coupons by category---------------------");
 		// ==================company coupons by category==============
 		System.out.println("All company coupons by specific category:");
 		List<Coupon> allCouponByCategory = new ArrayList<>();
@@ -158,7 +160,7 @@ public class TestAll {
 		for (Coupon coupon : allCouponByCategory) {
 			System.out.println(coupon);
 		}
-		System.out.println("\n-----------------------------------------------------------");
+		System.out.println("\n-----------Company coupons up to max price------------------");
 		// =============company coupons by up to a max price===========
 		double maxPrice = 20D;
 		System.out.println("all company coupons up to: " + maxPrice + " Dollar");
@@ -178,6 +180,9 @@ public class TestAll {
 	public void doCustomerTest() throws CouponSystemException {
 		System.out.println("\n\n\n====================== CUSTOMER TEST ======================");
 		CustomerService customer = (CustomerService) loginManager.login("bbbb", "bbbb",ClientType.CUSTOMER);
+		System.out.println("Company successfully logged in");
+		// ========================purchase coupon=====================
+		System.out.println("\n----------------------purchase coupon--------------------------");
 		Coupon coupon2 = new Coupon();
 		coupon2.setId(2);
 		Coupon coupon3 = new Coupon();
@@ -194,7 +199,7 @@ public class TestAll {
 		for (Coupon coupon : allCustomerCoupon) {
 			System.out.println(coupon);
 		}
-		System.out.println("\n-----------------------------------------------------------");
+		System.out.println("\n--------------customer coupon by category-------------------");
 		// ============all customer coupon purchased by category=======
 		Category category = Category.TRAVEL;
 		System.out.println("all customer: " + customer.getCustomerId() + " id coupon by "+ category + " category: ");
@@ -212,13 +217,13 @@ public class TestAll {
 		for (Coupon coupon : allCustomerCouponBelowMaxPrice) {
 			System.out.println(coupon);
 		}
-		System.out.println("\n-----------------------------------------------------------");
+		System.out.println("\n----------------customer details----------------------------");
 		// ======================== customer details:==================
 		System.out.println("customer details:");
 		System.out.println(customer.getCustomerDetails());
 		System.out.println("-----------------------------------------------------------\n\n\n");
 		
-		
+		System.out.println("\n\n\n End of test :) \n\n\n");
 	}
 
 }

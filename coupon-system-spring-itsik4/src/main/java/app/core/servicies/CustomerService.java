@@ -30,7 +30,15 @@ public class CustomerService extends ClientService {
 	}
 
 	
-	
+	/**
+	 * log in: Checks if password and email are correct
+	 * and also set id to customer
+	 * 
+	 * @param email
+	 * @param password
+	 * @return true or false
+	 */
+
 	@Override
 	public boolean login(String email, String password) {
 		if (customerRepo.existsByEmailAndPassword(email, password)) {
@@ -44,6 +52,15 @@ public class CustomerService extends ClientService {
 
 	
 	
+	/**
+	 * purchase coupon 
+	 * if coupon exists,
+	 * if coupon already purchased,
+	 * if coupon available, 
+	 * if the coupon is valid.
+	 * @param Coupon
+	 * @throws CouponSystemException
+	 */
 	public void purchaseCoupon(Coupon coupon) throws CouponSystemException {
 		if (customerId == 0) {
 			throw new CouponSystemException("purchaseCoupon failed - need to login first");
@@ -71,7 +88,7 @@ public class CustomerService extends ClientService {
 	}
 
 	
-	
+
 	public Customer getOneCustomer(int customerId) throws CouponSystemException {
 		Optional<Customer> opt = customerRepo.findById(customerId);
 		if (opt.isPresent()) {
@@ -84,6 +101,15 @@ public class CustomerService extends ClientService {
 
 	
 	
+	/**
+	 * purchase coupon from data base, also checks: 
+	 * if coupon exists,
+	 * if coupon already purchased,
+	 * if coupon available, 
+	 * if the coupon is valid.
+	 * @param couponId
+	 * @throws CouponSystemException
+	 */
 	public void purchaseCouponFromDb(int couponId) throws CouponSystemException {
 		if (customerId == 0) {
 			throw new CouponSystemException("purchaseCoupon failed - need to login first");
@@ -111,19 +137,37 @@ public class CustomerService extends ClientService {
 		couponFromDb.setAmount(couponFromDb.getAmount() - 1);
 	}
 
+	/**
+	 * @return All specific customer coupons by customer ID
+	 * @throws CouponSystemException
+	 */
 	public List<Coupon> getAllCoupon (){
 	return couponRepo.findByCustomersId(customerId);
 	}
 	
-	
+	/**
+	 * @param category
+	 * @return All coupons from a specific category of specific customer by customer id
+	 * @throws CouponSystemException
+	 */
 	public List<Coupon> getAllCouponByCategory (Category category){
 		return couponRepo.findByCustomersIdAndCategory(customerId , category);
 	}
 	
+	/**
+	 * @param maxPrice
+	 * @return All specific coupons of a specific customer by customer id, up to the maximum
+	 *         price
+	 * @throws CouponSystemException
+	 */
 	public List<Coupon> getAllCouponUpToMaxPrice (double maxPrice){
 		return couponRepo.findByCustomersIdAndPriceLessThan(customerId , maxPrice);
 	}
 	
+	/**
+	 * @return customer details
+	 * @throws CouponSystemException
+	 */
 	public Customer getCustomerDetails () {
 		return customerRepo.findById(customerId).get();
 	}
