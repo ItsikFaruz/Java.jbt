@@ -9,7 +9,7 @@ import app.core.entities.Customer;
 
 public interface CustomerRepo extends JpaRepository<Customer, Integer> {
 	
-	public boolean  existsByEmailAndPassword (String email , String password);
+	public boolean  existsByEmailAndPasswordAndId (String email , String password , int id);
 	
 	public boolean  existsByEmail (String email);
 	

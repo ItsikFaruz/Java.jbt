@@ -6,7 +6,10 @@ import org.springframework.stereotype.Component;
 
 import app.core.exception.CouponSystemException;
 import app.core.loginManager.Clients.ClientType;
+import app.core.servicies.AdminService;
 import app.core.servicies.ClientService;
+import app.core.servicies.CompanyService;
+import app.core.servicies.CustomerService;
 
 @Component
 
@@ -15,40 +18,41 @@ public class LoginManager {
 	@Autowired
 	private ApplicationContext ctx;
 
-	public ClientService login(String email, String password, ClientType clientType) throws CouponSystemException {
-		ClientService clientService;
+	public ClientService login(String email, String password, ClientType clientType, int id)
+			throws CouponSystemException {
 
 		String type = clientType.toString();
 		if (type.equals("CUSTOMER")) {
-			clientService = ctx.getBean("customerService", ClientService.class);
-			if (clientService.login(email, password)) {
-				return clientService;
+			CustomerService customerService = ctx.getBean("customerService", CustomerService.class);
+			if (customerService.login(email, password, id)) {
+				return customerService;
 			} else {
-				throw new CouponSystemException("login faild - wrong password or email");
+				throw new CouponSystemException("login faild - wrong password or email or id");
 			}
 
 		}
 
 		if (type.equals("COMPANY")) {
-			clientService = ctx.getBean("companyService", ClientService.class);
-			if (clientService.login(email, password)) {
-				return clientService;
-			}else {
-				throw new CouponSystemException("login faild - wrong password or email");
+			CompanyService companyService = ctx.getBean("companyService", CompanyService.class);
+			if (companyService.login(email, password, id)) {
+				return companyService;
+			} else {
+				throw new CouponSystemException("login faild - wrong password or email or id");
 			}
 
 		}
 
-		if (type.equals("ADMINISTRATOR")) {
-			clientService = ctx.getBean("adminService", ClientService.class);
-			if (clientService.login(email, password)) {
-				return clientService;
-			}else {
-				throw new CouponSystemException("login faild - wrong password or email");
-			}
-
-		}
-
+		
 		return null;
+	}
+
+	public AdminService adminLogin(String email, String password) throws CouponSystemException {
+		AdminService adminService = ctx.getBean("adminService", AdminService.class);
+		if (adminService.login(email, password)) {
+			return adminService;
+		} else {
+			throw new CouponSystemException("login faild - wrong password or email id");
+		}
+		
 	}
 }

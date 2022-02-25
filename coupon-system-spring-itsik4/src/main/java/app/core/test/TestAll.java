@@ -4,9 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import app.core.entities.Company;
@@ -23,14 +22,14 @@ import app.core.servicies.CustomerService;
 
 
 @Component
-public class TestAll {
+public class TestAll implements CommandLineRunner {
 	
 	@Autowired
 	LoginManager loginManager;
 
 //==========test==========	
 	
-	@PostConstruct
+	
 	public void test() throws CouponSystemException {
 		System.out.println("post");
 		doAdminTest();
@@ -224,6 +223,12 @@ public class TestAll {
 		System.out.println("-----------------------------------------------------------\n\n\n");
 		
 		System.out.println("\n\n\n End of test :) \n\n\n");
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+
+		test();
 	}
 
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,14 +22,14 @@ import app.core.servicies.AdminService;
 
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/ADMINISTRATOR")
 public class AdminController {
 
 	@Autowired
 	AdminService adminService;
 	
 	@PostMapping("/add_company")
-	public String addCompany (@RequestBody Company company) {
+	public String addCompany (@RequestBody Company company , @RequestHeader String token) {
 		
 		try {
 			 
@@ -42,7 +43,7 @@ public class AdminController {
 	}
 	
 	@PutMapping("/update_company")
-	public String updateCompany (@RequestBody Company company){
+	public String updateCompany (@RequestBody Company company , @RequestHeader String token){
 		
 		try {
 			adminService.updateCompany(company);
@@ -53,7 +54,7 @@ public class AdminController {
 	}
 	
 	@DeleteMapping("/delete_company/{companyId}")
-	public String deleteCompany (@PathVariable int companyId){
+	public String deleteCompany (@PathVariable int companyId , @RequestHeader String token){
 		try {
 			adminService.deleteCompany(companyId);
 			return ("company: " + companyId + " deleted");
@@ -64,7 +65,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("/get_all_companies")
-	public List<Company> getAllCompany(){
+	public List<Company> getAllCompany(@RequestHeader String token){
 		try {
 			List<Company> companies = adminService.getAllCompany();
 			return (companies);
@@ -74,7 +75,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("/get_one_company/{companyId}")
-	public Company getOneCompany(@PathVariable int companyId){
+	public Company getOneCompany(@PathVariable int companyId , @RequestHeader String token){
 		try {
 			 return (adminService.getOneCompany(companyId));
 		} catch (CouponSystemException e) {
@@ -84,7 +85,7 @@ public class AdminController {
 		
 	}
 	@PostMapping("/add_customer")
-	public String addCompany (@RequestBody Customer customer) {
+	public String addCompany (@RequestBody Customer customer , @RequestHeader String token) {
 		
 		try {
 			int id = adminService.addCustomer(customer);
@@ -97,7 +98,7 @@ public class AdminController {
 	}
 	
 	@PutMapping("/update_customer")
-	public String updateCustomer (@RequestBody Customer customer){
+	public String updateCustomer (@RequestBody Customer customer , @RequestHeader String token){
 		try {
 			int id = adminService.updateCustomer(customer);
 			return ("customer: " + id + " updated");
@@ -107,7 +108,7 @@ public class AdminController {
 		
 	}
 	@DeleteMapping("/delete_customer/{customerId}")
-		public String deleteCustomer (@PathVariable int customerId ){
+		public String deleteCustomer (@PathVariable int customerId , @RequestHeader String token){
 			try {
 				adminService.deleteCustomer(customerId);
 				return ("customer: " +customerId+ " deleted");
@@ -117,7 +118,7 @@ public class AdminController {
 		}
 	
 	@GetMapping("/get_all_customer")
-	public List<Customer> getAllCustomer(){
+	public List<Customer> getAllCustomer(@RequestHeader String token){
 		try {
 			List<Customer> customers = adminService.getAllCustomer();
 			return (customers);
@@ -127,7 +128,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("/get_one_customer/{customerId}")
-	public Customer getOneCustomer (@PathVariable int customerId){
+	public Customer getOneCustomer (@PathVariable int customerId , @RequestHeader String token){
 		try {
 			 return (adminService.getOneCustomer(customerId));
 		} catch (CouponSystemException e) {

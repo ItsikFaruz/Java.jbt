@@ -6,7 +6,7 @@ import app.core.repos.CompanyRepo;
 import app.core.repos.CouponRepo;
 import app.core.repos.CustomerRepo;
 
-public abstract class ClientService {
+public abstract class ClientAdminService {
 
 	@Autowired
 	protected CompanyRepo companyRepo;
@@ -15,7 +15,7 @@ public abstract class ClientService {
 	@Autowired
 	protected CouponRepo couponRepo;
 
-	public abstract boolean login(String email, String password , int id);
+	public abstract boolean login(String email, String password );
 	
 
 }

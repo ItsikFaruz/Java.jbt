@@ -15,7 +15,7 @@ import app.core.exception.CouponSystemException;
 
 @Component
 @Transactional
-public class AdminService extends ClientService {
+public class AdminService extends ClientAdminService {
 
 	@Value("${admin.email}")
 	private String email;
@@ -28,6 +28,7 @@ public class AdminService extends ClientService {
 	@Override
 	public boolean login(String email, String password) {
 		return email.equals(this.email) && password.equals(this.password);
+
 	}
 
 	/**
@@ -49,6 +50,9 @@ public class AdminService extends ClientService {
 		Optional<Company> opt = companyRepo.findById(company.getId());
 		if (opt.isPresent()) {
 			Company companyFromDb = opt.get();
+			if(!companyFromDb.getName().equals(company.getName())) {
+				throw new CouponSystemException("updateCompany faild - can't chang company name");
+			}
 			companyFromDb.setEmail(company.getEmail());
 			companyFromDb.setPassword(company.getPassword());
 		} else
@@ -80,7 +84,8 @@ public class AdminService extends ClientService {
 	public int addCustomer(Customer customer) throws CouponSystemException {
 		if (!customerRepo.existsByEmail(customer.getEmail())) {
 			customerRepo.save(customer);
-			Customer customerFromDb = customerRepo.findCustomerByEmailAndPassword(customer.getEmail(), customer.getPassword());
+			Customer customerFromDb = customerRepo.findCustomerByEmailAndPassword(customer.getEmail(),
+					customer.getPassword());
 			return customerFromDb.getId();
 		} else
 			throw new CouponSystemException("addCustomer faild - this email already exist ");
