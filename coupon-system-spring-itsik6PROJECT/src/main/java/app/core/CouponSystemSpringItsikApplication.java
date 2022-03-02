@@ -33,7 +33,7 @@ public class CouponSystemSpringItsikApplication {
 		// map the filter to a url pattern
 		filterRegistrationBean.addUrlPatterns("/ADMINISTRATOR/*");
 		// return the FilterRegistrationBean
-		return filterRegistrationBean;
+		return filterRegistrationBean; 
 	}  
 	// register and map the filter in a filter container
 	@Bean

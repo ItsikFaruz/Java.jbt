@@ -32,14 +32,21 @@ public class AdminFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 
 		String token = req.getHeader("token");
-		String uri = req.getRequestURI();
+//		String uri = req.getRequestURI();
+		
+		if (token == null && req.getMethod().equals("OPTIONS")) {
+			System.out.println("this is preflight request: " + req.getMethod());
+			chain.doFilter(request, response);
+			return;
+		}
+		
 		
 		if (token != null && !jwtUtil.isTokenExpired(token)) {
 			try {
 				
-				String uriType = jwtUtil.extractAdmin(token).getAdmintType().toString();
+				String tokenType = jwtUtil.extractAdmin(token).getAdmintType().toString();
 				
-				if (!uri.contains("ADMINISTRATOR") || !uriType.equals("ADMINISTRATOR")) {         
+				if (!tokenType.equals("ADMINISTRATOR")) {         
 					resp.sendError(HttpStatus.UNAUTHORIZED.value(), "invalid token - unauthorized");
 					return;
 				}

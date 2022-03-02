@@ -32,13 +32,20 @@ public class CustomerFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 
 		String token = req.getHeader("token");
-		String uri = req.getRequestURI();
+//		String uri = req.getRequestURI();
+		
+		if (token == null && req.getMethod().equals("OPTIONS")) {
+			System.out.println("this is preflight request: " + req.getMethod());
+			chain.doFilter(request, response);
+			return;
+		}
+		
 		if (token != null && !jwtUtil.isTokenExpired(token)) {
 			try {
 				
-				String uriType = jwtUtil.extractClient(token).getClientType().toString();
+				String tokenType = jwtUtil.extractClient(token).getClientType().toString();
 				
-				if (!uri.contains("CUSTOMER") || !uriType.equals("CUSTOMER")) {         
+				if (!tokenType.equals("CUSTOMER")) {         
 					resp.sendError(HttpStatus.UNAUTHORIZED.value(), "invalid token - go to login");
 					return;
 				}
