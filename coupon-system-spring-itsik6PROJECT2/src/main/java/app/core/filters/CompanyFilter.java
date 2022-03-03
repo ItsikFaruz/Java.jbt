@@ -30,6 +30,9 @@ public class CompanyFilter implements Filter {
 		// cast the req/resp to http1
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
+		resp.addHeader("Access-Control-Allow-Origin", "*");
+		resp.addHeader("Access-Control-Allow-Headers", "*");
+		
 		String token = req.getHeader("token");
 //		String uri = req.getRequestURI();
 

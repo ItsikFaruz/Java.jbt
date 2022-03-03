@@ -87,11 +87,11 @@ public class AdminController {
 		
 	}
 	@PostMapping("/add_customer")
-	public String addCompany (@RequestBody Customer customer , @RequestHeader String token) {
+	public int addCustomer (@RequestBody Customer customer , @RequestHeader String token) {
 		
 		try {
 			int id = adminService.addCustomer(customer);
-			return ("customer: " +id+ " added");
+			return (id );
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
  
@@ -100,20 +100,20 @@ public class AdminController {
 	}
 	
 	@PutMapping("/update_customer")
-	public String updateCustomer (@RequestBody Customer customer , @RequestHeader String token){
+	public int updateCustomer (@RequestBody Customer customer , @RequestHeader String token){
 		try {
 			int id = adminService.updateCustomer(customer);
-			return ("customer: " + id + " updated");
+			return (id);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 		
 	}
 	@DeleteMapping("/delete_customer/{customerId}")
-		public String deleteCustomer (@PathVariable int customerId , @RequestHeader String token){
+		public int deleteCustomer (@PathVariable int customerId , @RequestHeader String token){
 			try {
 				adminService.deleteCustomer(customerId);
-				return ("customer: " +customerId+ " deleted");
+				return (customerId);
 			} catch (Exception e) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 			}

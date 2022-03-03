@@ -89,7 +89,7 @@ public class CompanyController {
 		}
 	}
 	
-	@GetMapping("/get_company_coupon_up_to_max_price/{maxPrice}")
+	@GetMapping("/get_company_coupon_upToMax_price/{maxPrice}")
 	public List<Coupon> getAllCompanyCouponUpToMaxPrice(@PathVariable double maxPrice , @RequestHeader String token){
 		try {
 			List<Coupon> coupons = companyService.getAllCompanyCouponUpToMaxPrice(maxPrice,jwtUtil.extractClient(token).clientId);
