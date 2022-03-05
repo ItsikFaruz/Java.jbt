@@ -32,10 +32,10 @@ public class CustomerController {
 	
 
 	@PostMapping("/purchase_coupon/{couponId}")
-	public String purchaseCoupon(@PathVariable int couponId , @RequestHeader String token) {
+	public int purchaseCoupon(@PathVariable int couponId , @RequestHeader String token) {
 		try {
 			customerService.purchaseCouponFromDb(couponId, jwtUtil.extractClient(token).clientId);
-			return ("coupon: " + couponId + " purchased");
+			return (couponId);
 
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());

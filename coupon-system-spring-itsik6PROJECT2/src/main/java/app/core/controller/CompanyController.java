@@ -35,10 +35,10 @@ public class CompanyController {
 	private JwtUtil jwtUtil;
 	
 	@PostMapping("/add_coupon")
-	public String addCoupon (@RequestBody Coupon coupon , @RequestHeader String token) {
+	public int addCoupon (@RequestBody Coupon coupon , @RequestHeader String token) {
 		try {
 			int id = companyService.addCoupon(coupon , jwtUtil.extractClient(token).clientId  );
-			return ("coupon: " + id + " added");
+			return (id);
 			
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
@@ -48,21 +48,21 @@ public class CompanyController {
 	}
 	
 	@PutMapping("/update_coupon")
-	public String updateCompany (@RequestBody Coupon coupon , @RequestHeader String token){
+	public int updateCompany (@RequestBody Coupon coupon , @RequestHeader String token){
 		
 		try {
 			companyService.updatCoupon(coupon, jwtUtil.extractClient(token).clientId);
-			return ("coupon: " + coupon.getId()+ " updated");
+			return ( coupon.getId());
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}
 	}
 
 	@DeleteMapping("/delete_coupon/{couponId}")
-	public String deleteCoupon (@PathVariable int couponId , @RequestHeader String token){
+	public int deleteCoupon (@PathVariable int couponId , @RequestHeader String token){
 		try {
 			companyService.deleteCoupon(couponId , jwtUtil.extractClient(token).clientId );
-			return ("coupon: " +  couponId + " deleted");
+			return (couponId);
 		} catch (CouponSystemException e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
 		}

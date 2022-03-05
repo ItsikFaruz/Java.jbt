@@ -27,6 +27,7 @@ import lombok.ToString;
 @Entity
 public class Coupon {
 
+	
 	public enum Category {
 		FOOD, ELECTRICITY, RESTURANT, VACATION, TRAVEL;
 	}
@@ -34,6 +35,7 @@ public class Coupon {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+//	@Enumerated(EnumType.STRING)
 	private Category category;
 	private String title;
 	private String description;
