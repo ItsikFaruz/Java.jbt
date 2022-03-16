@@ -29,7 +29,7 @@ public class Coupon {
 
 	
 	public enum Category {
-		FOOD, ELECTRICITY, RESTURANT, VACATION, TRAVEL;
+		FOOD, ELECTRICITY, RESTURANT, VACATION, TRAVEL, CLOTHING, WORK ,CLEANING , HOME ,GARDEN,SPORT ;
 	}
 
 	@Id
@@ -47,7 +47,7 @@ public class Coupon {
 	private double price;
 	private String image;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH })
 	@JoinColumn(name = "company_id")
 	private Company company;

@@ -26,11 +26,14 @@ public interface CouponRepo extends JpaRepository<Coupon, Integer> {
 	
 	List<Coupon> findByCustomersId (int customerId);
 
+
 	List<Coupon> findByCustomersIdAndCategory (int customerId , Category category);
 
 	List<Coupon> findByCustomersIdAndPriceLessThan (int customerId , Double maxPrice);
 	
 	public void deleteByEndDateBefore (LocalDate time);
+	
+	Coupon findCouponById (int couponId);
 }
 
 

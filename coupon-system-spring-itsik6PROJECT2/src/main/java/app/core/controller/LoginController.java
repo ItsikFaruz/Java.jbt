@@ -19,7 +19,7 @@ import app.core.repos.CompanyRepo;
 import app.core.repos.CustomerRepo;
 @CrossOrigin
 @RestController
-@RequestMapping
+@RequestMapping("/login")
 public class LoginController {
 	
 	@Autowired
@@ -32,8 +32,8 @@ public class LoginController {
 	private CompanyRepo companyRepo;
 	
 	
-	@PostMapping( path = "/login" ,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public String login(@RequestParam String email ,@RequestParam String password, @RequestParam String clientType  ) throws CouponSystemException {
+	@PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public String login(@RequestParam String email ,@RequestParam String password, @RequestParam String clientType) throws CouponSystemException {
 		ClientType type = ClientType.valueOf(clientType);
 		try {
 			if(this.loginManager.login(email, password, type ) != null) {

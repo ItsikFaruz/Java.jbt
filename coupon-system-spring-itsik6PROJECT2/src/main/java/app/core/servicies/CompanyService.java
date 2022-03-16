@@ -82,6 +82,9 @@ public class CompanyService extends ClientService {
 	public List<Coupon> getAllCompanyCoupon(int companyId) {
 		return couponRepo.findByCompanyId(companyId);
 	}
+	public Coupon getCoupon(int couponId) {
+		return couponRepo.findCouponById(couponId);
+	}
 
 	public List<Coupon> getAllCompanyCouponByCategory(Category category, int companyId) {
 		return couponRepo.findByCompanyIdAndCategory(companyId, category);

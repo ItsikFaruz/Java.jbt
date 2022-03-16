@@ -47,6 +47,7 @@ public class CustomerController {
 	@GetMapping("/get_all_customer_coupon")
 	public List<Coupon> getAllCustomerCoupon( @RequestHeader String token) {
 		try {
+			System.out.println(customerService.getAllCoupon(jwtUtil.extractClient(token).clientId)); 
 			return customerService.getAllCoupon(jwtUtil.extractClient(token).clientId);
 
 		} catch (Exception e) {
@@ -82,5 +83,11 @@ public class CustomerController {
 		}
 
 	}
+	
+	@GetMapping("/get_all_products")
+	public List<Coupon> getAllProducts(@RequestHeader String token) {
+		return this.customerService.getAllProducts();
+	}
+	
 
 }

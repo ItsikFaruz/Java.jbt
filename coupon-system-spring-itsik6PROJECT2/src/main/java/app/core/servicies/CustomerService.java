@@ -108,4 +108,9 @@ public class CustomerService extends ClientService {
 //			throw new CouponSystemException("getOneCustomer failed - this customer not exist");
 //		}
 //	}
+	
+	public List<Coupon> getAllProducts() {
+		return this.couponRepo.findAll();
+	}
+	
 }
